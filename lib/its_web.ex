@@ -40,6 +40,7 @@ defmodule ItsWeb do
       import ItsWeb.Router.Helpers
       import ItsWeb.ErrorHelpers
       import ItsWeb.Gettext
+      import ItsWeb.Helpers.Auth, only: [signed_in?: 1]
     end
   end
 

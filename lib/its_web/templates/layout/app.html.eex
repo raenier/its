@@ -45,13 +45,15 @@
 
         <ul class="nav navbar-nav pull-right">
           <li>
-            <a href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-log-out"></span>
               <%= if signed_in?(@conn) do %>
-                <%= "Logout" %>
+                <%= link [to: session_path(@conn, :delete), method: "delete"] do %>
+                  <span class="glyphicon glyphicon-log-out"></span><%= " Logout" %>
+                <% end %>
               <% else %>
-                <%= "Login" %>
+                <%= link to: session_path(@conn, :new) do %>
+                  <span class="glyphicon glyphicon-log-in"></span><%= " Login" %>
+                <% end %>
               <% end %>
-            </a>
           </li>
         </ul>
       </div>

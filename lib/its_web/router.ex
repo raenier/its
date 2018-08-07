@@ -19,6 +19,7 @@ defmodule ItsWeb.Router do
     get "/", PageController, :index
 
     get "/sign-in", SessionController, :new
+    post "/sign-in", SessionController, :create
   end
 
   # Other scopes may use custom stacks.

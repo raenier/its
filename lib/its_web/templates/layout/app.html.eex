@@ -45,7 +45,13 @@
 
         <ul class="nav navbar-nav pull-right">
           <li>
-            <a href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+            <a href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-log-out"></span>
+              <%= if signed_in?(@conn) do %>
+                <%= "Logout" %>
+              <% else %>
+                <%= "Login" %>
+              <% end %>
+            </a>
           </li>
         </ul>
       </div>

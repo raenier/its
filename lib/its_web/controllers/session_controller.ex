@@ -22,4 +22,10 @@ defmodule ItsWeb.SessionController do
       end
     end
   end
+
+  def delete(conn, _params) do
+    conn
+    |> delete_session(:current_user_id)
+    |> render("new.html")
+  end
 end

@@ -15,6 +15,42 @@
   </head>
 
   <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="#">ITS-eastwestBPO &nbsp;|</a>
+        </div>
+
+        <ul class="nav navbar-nav">
+            <li>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                  <span class="glyphicon glyphicon-chevron-down"></span>&nbsp;Accounts
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <%= link to: "#" do %>
+                    <span class="glyphicon glyphicon-plus"></span><%= " Manage Users" %>
+                  <% end %>
+                </li>
+              </ul>
+            </li>
+
+            <li>
+              <%= link to: "#" do %>
+                <span class="glyphicon glyphicon-cog"></span><%= " Manage Tickets" %>
+              <% end %>
+            </li>
+        </ul>
+
+
+        <ul class="nav navbar-nav pull-right">
+          <li>
+            <a href="#" class="dropdown-toggle"><span class="glyphicon glyphicon-log-out"></span> Logout</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
       <main role="main">
         <%= render @view_module, @view_template, assigns %>
       </main>

@@ -18,7 +18,7 @@ defmodule Its.Accounts.User do
   def changeset(user, attrs) do
     user
     |> cast(attrs, [:username, :first_name, :middle_name, :last_name, :password, :type])
-    |> validate_required([:username, :first_name, :middle_name, :last_name, :password, :type])
+    |> validate_required([:username, :first_name, :last_name, :password, :type])
     |> unique_constraint(:username)
   end
 end

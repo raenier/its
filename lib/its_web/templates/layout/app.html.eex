@@ -60,7 +60,10 @@
     </nav>
 
       <main role="main">
-        <%= render @view_module, @view_template, assigns %>
+        <br></br><br>
+        <div class="container-fluid">
+          <%= render @view_module, @view_template, assigns %>
+        </div>
       </main>
     <script src="<%= static_path(@conn, "/js/app.js") %>"></script>
   </body>

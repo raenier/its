@@ -25,7 +25,9 @@ defmodule ItsWeb.Router do
 
   scope "/admin", ItsWeb do
     pipe_through :browser # Use the default browser stack
+
     get "/", AdminController, :index
+    post "/", AdminController, :create
   end
 
   # Other scopes may use custom stacks.

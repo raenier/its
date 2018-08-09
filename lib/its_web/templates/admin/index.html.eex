@@ -1,0 +1,87 @@
+<div class="container-fluid">
+<div class="panel panel-default">
+  <div class="panel-heading"><b>ADMIN</b></div>
+  <div class="panel-body">
+    <ul class="nav nav-tabs small-nav">
+      <li class="active">
+        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; All Users</a>
+      </li>
+      <li>
+        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; Call Centers</a>
+      </li>
+      <li>
+        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; Technician</a>
+      </li>
+      <div class="pull-right">
+        <a data-toggle="modal" data-target="#addEmpModal" class="btn btn-success btn-sm">
+          <span class="glyphicon glyphicon-plus gi-15x"></span>
+        </a>
+      </div>
+    </ul>
+
+    <div class="table-responsive">
+    <table class="table table-condensed table-hover">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Age</th>
+          <th>Position</th>
+          <th>email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+      <%= for user <- @users do %>
+        <tr>
+          <td><%= user.first_name %></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td class="text-right">
+            <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editEmpModal">
+                <span class="glyphicon glyphicon-edit"></span>
+            </button>
+            <span>
+                <span class="glyphicon glyphicon-trash"></span>
+            </span>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+    </div>
+  </div>
+</div>
+</div>
+
+<!--MODALS-->
+<div id="editEmpModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Edit Information</h4>
+          </div>
+          <div class="modal-body">
+            <%= render "form.html", Map.put(assigns, :action, admin_path(@conn, :create)) %>
+          </div>
+          <div class="modal-footer" style="margin-left: 2px;">
+          </div>
+      </div>
+  </div>
+</div>
+
+<div id="addEmpModal" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Add Client</h4>
+          </div>
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer" style="margin-left: 2px;">
+          </div>
+      </div>
+  </div>
+</div>

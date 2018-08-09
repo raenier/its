@@ -23,6 +23,11 @@ defmodule ItsWeb.Router do
     delete "/sign-in", SessionController, :delete
   end
 
+  scope "/admin", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+    get "/", AdminController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ItsWeb do
   #   pipe_through :api

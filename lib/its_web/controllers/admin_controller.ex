@@ -5,6 +5,7 @@ defmodule ItsWeb.AdminController do
 
   def index(conn, _params) do
     users = Accounts.list_users()
-    render conn, "index.html", users: users
+    changeset = Accounts.change_user(%Accounts.User{})
+    render conn, "index.html", users: users, changeset: changeset
   end
 end

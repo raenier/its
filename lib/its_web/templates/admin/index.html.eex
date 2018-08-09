@@ -35,7 +35,11 @@
           <td><%= user.username %></td>
           <td><%= user.last_name %> <%= user.first_name %>, <%= String.first(user.middle_name) %></td>
           <td><%= user.type %></td>
-          <td><input type=password class="input-sm" disabled value=<%= user.password %>></input> </td>
+          <td>
+            <input type=password class="input-sm" disabled value=<%= user.password %> id="pass<%= user.id %>">
+            </input>
+            <button class="btn btn-default" onclick="reveal('pass<%= user.id %>')"><span class="glyphicon glyphicon-eye-open"></span></button>
+          </td>
 
           <td class="text-right">
             <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editEmpModal">
@@ -63,7 +67,6 @@
               <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Edit Information</h4>
           </div>
           <div class="modal-body">
-            <%= render "form.html", Map.put(assigns, :action, admin_path(@conn, :create)) %>
           </div>
           <div class="modal-footer" style="margin-left: 2px;">
           </div>
@@ -72,13 +75,16 @@
 </div>
 
 <div id="addEmpModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Add Client</h4>
+              <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Add User</h4>
           </div>
           <div class="modal-body">
+            <div class="container-fluid">
+              <%= render "form.html", Map.put(assigns, :action, admin_path(@conn, :create)) %>
+            </div>
           </div>
           <div class="modal-footer" style="margin-left: 2px;">
           </div>

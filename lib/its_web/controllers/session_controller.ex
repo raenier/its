@@ -5,7 +5,13 @@ defmodule ItsWeb.SessionController do
 
   def new(conn, _params) do
     conn = put_layout conn, false
-    render conn, "new.html"
+    if ItsWeb.Helpers.Auth.signed_in?(conn) do
+      #redirect according to user type
+      conn
+      |>redirect(to: page_path(conn, :index))
+    else
+      render conn, "new.html"
+    end
   end
 
   def create(conn, %{"session" => auth_params}) do

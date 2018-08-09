@@ -10,6 +10,7 @@ defmodule Its.Accounts.User do
     field :password, :string
     field :type, :string
     field :username, :string
+    field :password_confirm, :string, virtual: true
 
     timestamps()
   end

@@ -61,7 +61,6 @@
     </nav>
 
       <main role="main">
-        <br></br><br>
         <div class="container-fluid">
           <%= render @view_module, @view_template, assigns %>
         </div>

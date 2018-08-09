@@ -28,7 +28,7 @@
               </a>
               <ul class="dropdown-menu">
                 <li>
-                  <%= link to: "#" do %>
+                  <%= link to: admin_path(@conn, :index) do %>
                     <span class="glyphicon glyphicon-plus"></span><%= " Manage Users" %>
                   <% end %>
                 </li>

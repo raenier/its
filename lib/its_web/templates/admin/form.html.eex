@@ -3,12 +3,12 @@
     <span class="glyphicon glyphicon-list-alt"></span>
   </h4>
   <hr>
-<%= form_for @changeset, @action, [class: "text-right"], fn f -> %>
+<%= form_for @changeset, @action, fn f -> %>
 
   <div class="form-group">
     <div class="row">
       <div class="col-sm-3"><label class="control-label">Username:</label></div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         <%= text_input f, :username, class: "form-control input-sm", required: "required" %>
       </div>
     </div>
@@ -17,7 +17,7 @@
   <div class="form-group">
     <div class="row">
       <div class="col-sm-3"><label class="control-label">Name:</label></div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         <%= text_input f, :first_name, class: "form-control input-sm", placeholder: "First Name", required: "required" %>
         <%= text_input f, :middle_name, class: "form-control input-sm", placeholder: "Middle Name" %>
         <%= text_input f, :last_name, class: "form-control input-sm", placeholder: "Last Name", required: "required" %>
@@ -37,15 +37,15 @@
   <div class="form-group">
     <div class="row">
       <div class="col-sm-3"><label class="control-label">Password:</label></div>
-      <div class="col-sm-8">
+      <div class="col-sm-7">
         <%= text_input f, :password, type: "password", onkeyup: "match()", class: "form-control input-sm", placeholder: "Password", required: "required" %>
         <%= text_input f, :password_confirm, type: "password", onkeyup: "match()", class: "form-control input-sm", placeholder: "Confirm Password", required: "required" %>
         <p id="errmessage"></p>
       </div>
     </div>
   </div>
-
-  <div class="form-group">
+  <br>
+  <div class="form-group text-right">
     <%= submit "Submit", id: "submit_user",class: "btn btn-primary" %>
   </div>
 <% end %>

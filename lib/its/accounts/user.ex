@@ -6,7 +6,7 @@ defmodule Its.Accounts.User do
   schema "users" do
     field :first_name, :string
     field :last_name, :string
-    field :middle_name, :string
+    field :middle_name, :string, default: ""
     field :password, :string
     field :type, :string
     field :username, :string

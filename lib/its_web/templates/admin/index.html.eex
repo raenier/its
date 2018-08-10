@@ -42,7 +42,7 @@
           </td>
 
           <td class="text-right">
-            <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editEmpModal">
+            <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editUserModal<%=user.id%>">
                 <span class="glyphicon glyphicon-edit"></span>
             </button>
               <%= link to: admin_path(@conn, :delete, user), method: "delete", class: "btn btn-danger btn-xs",
@@ -51,6 +51,23 @@
               <% end %>
           </td>
         </tr>
+        <!--EDIT MODAL-->
+          <div id="editUserModal<%=user.id%>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Edit Information</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%= render "form_edit.html", changeset: Its.Accounts.change_user(user),
+                                              action: admin_path(@conn, :update, user) %>
+                    </div>
+                    <div class="modal-footer" style="margin-left: 2px;">
+                    </div>
+                </div>
+            </div>
+          </div>
       <% end %>
       </tbody>
     </table>
@@ -59,21 +76,6 @@
 </div>
 </div>
 
-<!--MODALS-->
-<div id="editEmpModal" class="modal fade" role="dialog">
-  <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-          <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Edit Information</h4>
-          </div>
-          <div class="modal-body">
-          </div>
-          <div class="modal-footer" style="margin-left: 2px;">
-          </div>
-      </div>
-  </div>
-</div>
 
 <div id="addEmpModal" class="modal fade" role="dialog">
   <div class="modal-dialog">

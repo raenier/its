@@ -28,4 +28,17 @@ defmodule ItsWeb.AdminController do
         |> redirect(to: admin_path(conn, :index))
     end
   end
+
+  def update(conn, %{"id" => id, "user" => attrs}) do
+    user = Accounts.get_user! id
+    case Accounts.update_user(user, attrs) do
+      {:ok, user} ->
+        conn
+        |> redirect(to: admin_path(conn, :index))
+
+      {:error, _changest} ->
+        conn
+        |> redirect(to: admin_path(conn, :index))
+    end
+  end
 end

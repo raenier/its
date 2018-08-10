@@ -29,6 +29,7 @@ defmodule ItsWeb.Router do
     get "/", AdminController, :index
     post "/", AdminController, :create
     delete "/:id", AdminController, :delete
+    put "/:id", AdminController, :update
   end
 
   # Other scopes may use custom stacks.

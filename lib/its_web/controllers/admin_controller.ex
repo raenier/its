@@ -19,4 +19,13 @@ defmodule ItsWeb.AdminController do
         |> redirect(to: admin_path(conn, :index))
     end
   end
+
+  def delete(conn, %{ "id" => id }) do
+    user = Accounts.get_user! id
+    case Accounts.delete_user(user) do
+      {:ok, user} ->
+        conn
+        |> redirect(to: admin_path(conn, :index))
+    end
+  end
 end

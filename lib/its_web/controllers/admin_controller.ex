@@ -6,8 +6,7 @@ defmodule ItsWeb.AdminController do
   def index(conn, _params) do
     users = Accounts.list_users()
     changeset = Accounts.change_user(%Accounts.User{})
-    typeselection = [client: "client", technician: "tech"]
-    render conn, "index.html", users: users, changeset: changeset, typeselection: typeselection
+    render conn, "index.html", users: users, changeset: changeset
   end
 
   def create(conn, %{"user" => attrs}) do

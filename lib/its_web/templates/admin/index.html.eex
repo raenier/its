@@ -13,7 +13,7 @@
         <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; Technician</a>
       </li>
       <div class="pull-right">
-        <a data-toggle="modal" data-target="#addEmpModal" class="btn btn-success btn-sm">
+        <a data-toggle="modal" data-target="#addUserModal" class="btn btn-success btn-sm">
           <span class="glyphicon glyphicon-plus gi-15x"></span>
         </a>
       </div>
@@ -77,7 +77,8 @@
 </div>
 
 
-<div id="addEmpModal" class="modal fade" role="dialog">
+<!--ADDMODAL-->
+<div id="addUserModal" class="modal fade" role="dialog">
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">

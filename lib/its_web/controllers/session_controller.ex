@@ -36,7 +36,6 @@ defmodule ItsWeb.SessionController do
   def delete(conn, _params) do
     conn
     |> delete_session(:current_user_id)
-    |> put_layout(false)
-    |> render("new.html")
+    |> redirect(to: page_path(conn, :index))
   end
 end

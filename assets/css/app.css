@@ -1,4 +1,7 @@
 /* This file is for your main application css. */
-body {
-    padding-top: 65px;
+.link-white {
+ color: #E1D3C1;
+}
+.link-white:hover {
+  color: white;
 }

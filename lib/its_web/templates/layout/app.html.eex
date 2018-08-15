@@ -9,54 +9,54 @@
 
     <title>ITS</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
   </head>
 
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="#">ITS-eastwestBPO &nbsp;|</a>
-        </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <a class="navbar-brand" href="#">ITSeastwestBPO |</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
         <%= if signed_in?(@conn) do %>
-        <ul class="nav navbar-nav">
-            <li>
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                  <span class="glyphicon glyphicon-chevron-down"></span>&nbsp;Accounts
-              </a>
-              <ul class="dropdown-menu">
-                <li>
-                  <%= link to: admin_path(@conn, :index) do %>
-                    <span class="glyphicon glyphicon-plus"></span><%= " Manage Users" %>
-                  <% end %>
-                </li>
-              </ul>
-            </li>
-
-            <li>
-              <%= link to: "#" do %>
-                <span class="glyphicon glyphicon-cog"></span><%= " Manage Tickets" %>
+          <li class="nav-item dropdown active">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fas fa-users"></i> Accounts
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <%= link [to: admin_path(@conn, :index), class: "dropdown-item"] do %>
+                All Users
               <% end %>
-            </li>
-        </ul>
-        <% end %>
-
-        <ul class="nav navbar-nav pull-right">
-          <li>
-              <%= if signed_in?(@conn) do %>
-                <%= link [to: session_path(@conn, :delete), method: "delete"] do %>
-                  <span class="glyphicon glyphicon-log-out"></span><%= " Logout" %>
-                <% end %>
-              <% else %>
-                <%= link to: session_path(@conn, :new) do %>
-                  <span class="glyphicon glyphicon-log-in"></span><%= " Login" %>
-                <% end %>
-              <% end %>
+            </div>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <i class="fas fa-ticket-alt"></i>&nbsp;Manage Tickets
+            </a>
+          </li>
+        <% end %>
         </ul>
+
+        <form class="form-inline my-2 my-lg-0">
+              <%= if signed_in?(@conn) do %>
+                <%= link [to: session_path(@conn, :delete), class: "nav-link link-white", method: "delete"] do %>
+                  <i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out
+                <% end %>
+              <%= else %>
+                <%= link to: session_path(@conn, :new), class: "nav-link link-white" do %>
+                  <i class="fas fa-sign-in-alt"></i>&nbsp;Sign In
+                <% end %>
+              <% end %>
+            </a>
+        </form>
       </div>
     </nav>
 

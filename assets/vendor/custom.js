@@ -1,10 +1,9 @@
 function reveal(id){
-  console.log("hey");
-  var x = document.getElementById(id);
-    if (x.type === "password") {
-        x.type = "text";
+  var passfield = document.getElementById(id);
+    if (passfield.type === "password") {
+        passfield.type = "text";
     } else {
-        x.type = "password";
+        passfield.type = "password";
     }
 }
 

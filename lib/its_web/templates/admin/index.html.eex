@@ -1,32 +1,32 @@
+<br>
 <div class="container-fluid">
-<div class="panel panel-default">
-  <div class="panel-heading"><b>ADMIN</b></div>
-  <div class="panel-body">
-    <ul class="nav nav-tabs small-nav">
-      <li class="active">
-        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; All Users</a>
+    <ul class="nav nav-tabs">
+      <li class="nav-item">
+        <a href="#" class="nav-link active"><span class="fas fa-user-tie"></span>&nbsp; All Users</a>
       </li>
-      <li>
-        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; Call Centers</a>
+      <li class="nav-item">
+        <a href="#" class="nav-link"><span class="fas fa-user-astronaut"></span>&nbsp; Call Centers</a>
       </li>
-      <li>
-        <a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp; Technician</a>
+      <li class="nav-item">
+        <a href="#" class="nav-link"><span class="fas fa-user-secret"></span>&nbsp; Technician</a>
       </li>
-      <div class="pull-right">
+      <div class="ml-auto">
         <a data-toggle="modal" data-target="#addUserModal" class="btn btn-success btn-sm">
-          <span class="glyphicon glyphicon-plus gi-15x"></span>
+          <span class="fas fa-user-plus gi-15x"></span>
         </a>
       </div>
     </ul>
-
-    <div class="table-responsive">
-    <table class="table table-condensed table-hover">
-      <thead>
+    <br>
+    <div class="card">
+    <div class="card-body">
+    <table class="table table-sm table-hover">
+      <thead class="thead-dark">
         <tr>
           <th>User Name</th>
           <th>Name</th>
           <th>Type</th>
           <th>Password</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -36,18 +36,24 @@
           <td><%= user.last_name %> <%= user.first_name %>, <%= unless is_nil(user.middle_name), do: String.first(user.middle_name) %></td>
           <td><%= user.type %></td>
           <td>
-            <input type=password class="input-sm" disabled value=<%= user.password %> id="pass<%= user.id %>">
-            </input>
-            <button class="btn btn-default" onclick="reveal('pass<%= user.id %>')"><span class="glyphicon glyphicon-eye-open"></span></button>
+            <div class="input-group col-7">
+              <input type=password class="form-control form-control-sm" disabled value=<%= user.password %> id="pass<%= user.id %>">
+              </input>
+              <div class="input-group-append">
+                <button class="btn btn-sm" onclick="reveal('pass<%= user.id %>')">
+                  <span class="far fa-eye"></span>
+                </button>
+              </div>
+            </div>
           </td>
 
           <td class="text-right">
-            <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editUserModal<%=user.id%>">
-                <span class="glyphicon glyphicon-edit"></span>
+            <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#editUserModal<%=user.id%>">
+                <span class="fas fa-marker"></span>
             </button>
-              <%= link to: admin_path(@conn, :delete, user), method: "delete", class: "btn btn-danger btn-xs",
+              <%= link to: admin_path(@conn, :delete, user), method: "delete", class: "btn btn-outline-danger btn-sm",
                 data: [confirm: "Delete User?"] do %>
-                <span class="glyphicon glyphicon-trash"></span>
+                <span class="fas fa-trash"></span>
               <% end %>
           </td>
         </tr>
@@ -71,9 +77,8 @@
       <% end %>
       </tbody>
     </table>
-    </div>
   </div>
-</div>
+  </div>
 </div>
 
 
@@ -82,13 +87,15 @@
   <div class="modal-dialog">
       <div class="modal-content">
           <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title lead"><span class="glyphicon glyphicon-edit"></span>&nbsp;&nbsp;Add User</h4>
+            <h5 class="modal-title">
+              <i class="fas fa-user-tie"></i>&nbsp; Add User
+            </h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
           </div>
           <div class="modal-body">
-            <div class="container-fluid">
               <%= render "form.html", Map.put(assigns, :action, admin_path(@conn, :create)) %>
-            </div>
           </div>
           <div class="modal-footer" style="margin-left: 2px;">
           </div>

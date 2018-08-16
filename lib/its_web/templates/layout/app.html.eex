@@ -39,7 +39,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">
-              <i class="fas fa-ticket-alt"></i>&nbsp;Manage Tickets
+              <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
             </a>
           </li>
         <% end %>
@@ -52,7 +52,7 @@
                 <% end %>
               <%= else %>
                 <%= link to: session_path(@conn, :new), class: "nav-link link-white" do %>
-                  <i class="fas fa-sign-in-alt"></i>&nbsp;Sign In
+                  <i class="fas fa-sign-in-alt"></i>&nbsp;Sign In&nbsp;&nbsp;&nbsp;
                 <% end %>
               <% end %>
             </a>

@@ -8,8 +8,26 @@ defmodule ItsWeb.AdminController do
   defp check_admin_auth(conn, _args) do
     if user_id = get_session(conn, :current_user_id) do
       current_user = Accounts.get_user!(user_id)
-      conn
-      |> assign(:current_user, current_user)
+      case current_user.type do
+        "client" ->
+          conn
+          |> redirect(to: page_path(conn, :index))
+          |> halt()
+
+        "technician" ->
+          conn
+          |> redirect(to: page_path(conn, :index))
+          |> halt()
+
+        "admin" ->
+          conn
+          |> assign(:current_user, current_user)
+
+        _ ->
+          conn
+          |> redirect(to: session_path(conn, :new))
+          |> halt()
+      end
     else
       conn
       |> redirect(to: session_path(conn, :new))

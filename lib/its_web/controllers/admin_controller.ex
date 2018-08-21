@@ -3,6 +3,20 @@ defmodule ItsWeb.AdminController do
 
   alias Its.Accounts
 
+  plug :check_admin_auth when action in [:index, :create, :delete, :update]
+
+  defp check_admin_auth(conn, _args) do
+    if user_id = get_session(conn, :current_user_id) do
+      current_user = Accounts.get_user!(user_id)
+      conn
+      |> assign(:current_user, current_user)
+    else
+      conn
+      |> redirect(to: session_path(conn, :new))
+      |> halt()
+    end
+  end
+
   def index(conn, _params) do
     users = Accounts.list_users()
     changeset = Accounts.change_user(%Accounts.User{})

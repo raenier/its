@@ -27,21 +27,40 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
         <%= if signed_in?(@conn) do %>
-          <li class="nav-item dropdown active">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fas fa-users"></i> Accounts
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <%= link [to: admin_path(@conn, :index), class: "dropdown-item"] do %>
-                All Users
-              <% end %>
-            </div>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">
-              <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
-            </a>
-          </li>
+          <%= case check_user_type(@conn) do %>
+            <% "admin" -> %>
+            <li class="nav-item dropdown active">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fas fa-users"></i> Accounts
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <%= link [to: admin_path(@conn, :index), class: "dropdown-item"] do %>
+                  All Users
+                <% end %>
+              </div>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">
+                <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
+              </a>
+            </li>
+
+            <% "client" -> %>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
+                </a>
+              </li>
+
+            <% "technician" -> %>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
+                </a>
+              </li>
+
+            <% _ -> %>
+          <% end %>
         <% end %>
         </ul>
 

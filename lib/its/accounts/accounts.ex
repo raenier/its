@@ -21,6 +21,10 @@ defmodule Its.Accounts do
     Repo.all(User)
   end
 
+  def list_users_except_admins do
+    query = from u in User, where: u.type != "admin"
+    Repo.all(query)
+  end
   @doc """
   Gets a single user.
 

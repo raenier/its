@@ -26,7 +26,7 @@ defmodule ItsWeb.Router do
   scope "/admin", ItsWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", AdminController, :index
+    get "/", AdminController, :index_all
     post "/", AdminController, :create
     delete "/:id", AdminController, :delete
     put "/:id", AdminController, :update

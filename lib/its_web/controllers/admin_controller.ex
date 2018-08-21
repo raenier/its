@@ -3,7 +3,7 @@ defmodule ItsWeb.AdminController do
 
   alias Its.Accounts
 
-  plug :check_admin_auth when action in [:index, :create, :delete, :update]
+  plug :check_admin_auth when action in [:index_all, :create, :delete, :update]
 
   defp check_admin_auth(conn, _args) do
     if user_id = get_session(conn, :current_user_id) do
@@ -35,8 +35,8 @@ defmodule ItsWeb.AdminController do
     end
   end
 
-  def index(conn, _params) do
-    users = Accounts.list_users()
+  def index_all(conn, _params) do
+    users = Accounts.list_users_except_admins()
     changeset = Accounts.change_user(%Accounts.User{})
     render conn, "index.html", users: users, changeset: changeset
   end

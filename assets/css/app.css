@@ -5,3 +5,7 @@
 .link-white:hover {
   color: white;
 }
+.no-top-border tr th {
+  border-top: none !important;
+  border-bottom: solid 3px !important;
+}

@@ -27,6 +27,8 @@ defmodule ItsWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", AdminController, :index_all
+    get "/clients", AdminController, :index_clients
+    get "/techs", AdminController, :index_tech
     post "/", AdminController, :create
     delete "/:id", AdminController, :delete
     put "/:id", AdminController, :update

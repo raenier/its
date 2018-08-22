@@ -3,7 +3,7 @@ defmodule ItsWeb.AdminController do
 
   alias Its.Accounts
 
-  plug :check_admin_auth when action in [:index_all, :create, :delete, :update]
+  plug :check_admin_auth when action in [:index_all, :index_clients, :index_tech, :create, :delete, :update]
 
   defp check_admin_auth(conn, _args) do
     if user_id = get_session(conn, :current_user_id) do
@@ -36,19 +36,34 @@ defmodule ItsWeb.AdminController do
   end
 
   def index_all(conn, _params) do
-    users = Accounts.list_users_except_admins()
+    users = Accounts.list_users_only(["client", "technician"])
     changeset = Accounts.change_user(%Accounts.User{})
-    render conn, "index.html", users: users, changeset: changeset
+    active_tab = 1
+    render conn, "index.html", users: users, changeset: changeset, active_tab: active_tab
+  end
+
+  def index_clients(conn, _params) do
+    users = Accounts.list_users_only(["client"])
+    changeset = Accounts.change_user(%Accounts.User{})
+    active_tab = 2
+    render conn, "index.html", users: users, changeset: changeset, active_tab: active_tab
+  end
+
+  def index_tech(conn, _params) do
+    users = Accounts.list_users_only(["technician"])
+    changeset = Accounts.change_user(%Accounts.User{})
+    active_tab = 3
+    render conn, "index.html", users: users, changeset: changeset, active_tab: active_tab
   end
 
   def create(conn, %{"user" => attrs}) do
     case Accounts.create_user(attrs) do
       {:ok, user} ->
         conn
-        |> redirect(to: admin_path(conn, :index))
+        |> redirect(to: admin_path(conn, :index_all))
       {:error, changeset} ->
         conn
-        |> redirect(to: admin_path(conn, :index))
+        |> redirect(to: admin_path(conn, :index_all))
     end
   end
 
@@ -57,7 +72,7 @@ defmodule ItsWeb.AdminController do
     case Accounts.delete_user(user) do
       {:ok, user} ->
         conn
-        |> redirect(to: admin_path(conn, :index))
+        |> redirect(to: admin_path(conn, :index_all))
     end
   end
 
@@ -66,11 +81,11 @@ defmodule ItsWeb.AdminController do
     case Accounts.update_user(user, attrs) do
       {:ok, user} ->
         conn
-        |> redirect(to: admin_path(conn, :index))
+        |> redirect(to: admin_path(conn, :index_all))
 
       {:error, _changest} ->
         conn
-        |> redirect(to: admin_path(conn, :index))
+        |> redirect(to: admin_path(conn, :index_all))
     end
   end
 end

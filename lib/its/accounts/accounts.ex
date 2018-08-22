@@ -21,8 +21,8 @@ defmodule Its.Accounts do
     Repo.all(User)
   end
 
-  def list_users_except_admins do
-    query = from u in User, where: u.type != "admin"
+  def list_users_only(criteria) do
+    query = from u in User, where: u.type in ^criteria
     Repo.all(query)
   end
   @doc """

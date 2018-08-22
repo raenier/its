@@ -57,7 +57,7 @@
             <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#editUserModal<%=user.id%>">
                 <span class="fas fa-marker"></span>
             </button>
-              <%= link to: admin_path(@conn, :delete, user), method: "delete", class: "btn btn-outline-danger btn-sm",
+              <%= link to: admin_path(@conn, :delete, user, @active_tab), method: "delete", class: "btn btn-outline-danger btn-sm",
                 data: [confirm: "Delete User?"] do %>
                 <span class="fas fa-trash"></span>
               <% end %>

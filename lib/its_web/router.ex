@@ -30,7 +30,7 @@ defmodule ItsWeb.Router do
     get "/clients", AdminController, :index_clients
     get "/techs", AdminController, :index_tech
     post "/", AdminController, :create
-    delete "/:id", AdminController, :delete
+    delete "/:id/:tab", AdminController, :delete
     put "/:id", AdminController, :update
   end
 

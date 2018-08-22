@@ -67,12 +67,23 @@ defmodule ItsWeb.AdminController do
     end
   end
 
-  def delete(conn, %{ "id" => id }) do
+  def delete(conn, %{ "id" => id ,"tab" => active_tab}) do
     user = Accounts.get_user! id
     case Accounts.delete_user(user) do
       {:ok, user} ->
-        conn
-        |> redirect(to: admin_path(conn, :index_all))
+        case active_tab do
+          "1" ->
+            conn
+            |> redirect(to: admin_path(conn, :index_all))
+
+          "2" ->
+            conn
+            |> redirect(to: admin_path(conn, :index_clients))
+
+          "3" ->
+            conn
+            |> redirect(to: admin_path(conn, :index_tech))
+        end
     end
   end
 

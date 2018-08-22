@@ -34,7 +34,7 @@
                 <i class="fas fa-users"></i> Accounts
               </a>
               <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <%= link [to: admin_path(@conn, :index), class: "dropdown-item"] do %>
+                <%= link [to: admin_path(@conn, :index_all), class: "dropdown-item"] do %>
                   All Users
                 <% end %>
               </div>

@@ -27,7 +27,7 @@
       <div class="input-group-prepend">
         <label class="control-label input-group-text">Type:</label>
       </div>
-      <%= select f, :type, [Client: "client", Technician: "technician"], selected: "client",class: "form-control" %>
+      <%= select f, :type, [Client: "client", Technician: "technician"], class: "form-control", disabled: "disabled" %>
     </div>
   </div>
 

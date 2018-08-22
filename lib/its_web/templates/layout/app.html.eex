@@ -67,6 +67,17 @@
         <form class="form-inline my-2 my-lg-0">
               <%= if signed_in?(@conn) do %>
                 <%= link [to: session_path(@conn, :delete), class: "nav-link link-white", method: "delete"] do %>
+                  <%= case check_user_type(@conn) do %>
+                    <% "admin" -> %>
+                      <i class="fas fa-user-astronaut"></i>
+
+                    <% "technician" -> %>
+                      <i class="fas fa-user-tie"></i>
+
+                    <% "client" -> %>
+                      <i class="fas fa-user"></i>
+
+                  <% end %>
                   <i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out
                 <% end %>
               <%= else %>

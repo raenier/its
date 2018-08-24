@@ -9,3 +9,49 @@
   border-top: none !important;
   border-bottom: solid 3px !important;
 }
+
+.hide-text-overflow td {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+table {
+  font-size: smaller;
+}
+
+.navbar-5-pad {
+  padding-top: 3px !important;
+  padding-bottom: 4px !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.padding-10 {
+  padding: 10px !important;
+}
+
+.dot-green {
+  height: 1em;
+  width: 1em;
+  background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.wdth-5 {
+ width: 5%;
+}
+
+.wdth-10 {
+ width: 10%;
+}
+
+.wdth-15 {
+ width: 15%;
+}
+
+.wdth-20 {
+ width: 20%;
+}

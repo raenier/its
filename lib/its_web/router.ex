@@ -34,6 +34,12 @@ defmodule ItsWeb.Router do
     put "/:id", AdminController, :update
   end
 
+  scope "/client", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", ClientController, :index
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ItsWeb do
   #   pipe_through :api

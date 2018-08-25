@@ -2,8 +2,11 @@ defmodule Its.Issue.Ticket do
   use Ecto.Schema
   import Ecto.Changeset
 
+  alias Its.Accounts.User
 
   schema "tickets" do
+    belongs_to :client, User
+
     field :category, :string
     field :priority, :integer, default: 3
     field :status, :integer, default: 1
@@ -16,7 +19,7 @@ defmodule Its.Issue.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [:title, :priority, :category, :status, :description])
+    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id])
     |> validate_required([:title, :priority, :category, :status, :description])
   end
 end

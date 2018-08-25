@@ -11,12 +11,15 @@ defmodule ItsWeb.ClientController do
   end
 
   def create(conn, %{"ticket" => ticket}) do
+    client_id = get_session(conn, :current_user_id)
+    ticket =
+    Map.put(ticket, "client_id", client_id)
+
     case Issue.create_ticket(ticket) do
       {:ok, ticket} ->
         conn
         |> redirect(to: client_path(conn, :index))
       {:error, changeset} ->
-        IO.inspect changeset
         conn
         |> redirect(to: client_path(conn, :index))
     end

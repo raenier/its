@@ -50,9 +50,9 @@
 
             <% "client" -> %>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <%= link [to: client_path(@conn, :index), class: "nav-link"] do %>
                   <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
-                </a>
+                <% end %>
               </li>
 
             <% "technician" -> %>

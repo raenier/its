@@ -36,7 +36,22 @@
           <tr>
             <td><%= ticket.id %></td>
             <td><%= ticket.title %></td>
-            <td><%= ticket.priority %></td>
+            <td>
+              <%= case ticket.priority do %>
+                <% 1 -> %>
+                  <span class="dot-red"></span>
+
+                <% 2 -> %>
+                  <span class="dot-orange"></span>
+
+                <% 3 -> %>
+                  <span class="dot-green"></span>
+
+                <% _ -> %>
+                  Undefined
+
+              <% end %>
+            </td>
             <td><%= ticket.category %></td>
             <td>asdfasdfjasdfasdhjfhasdkjfh jkasdhf the quick brown foxx jumps over the lazzy dog</td>
             <td>

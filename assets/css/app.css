@@ -32,10 +32,26 @@ table {
   padding: 10px !important;
 }
 
+.dot-orange {
+  height: 1em;
+  width: 1em;
+  background-color: orange;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 .dot-green {
   height: 1em;
   width: 1em;
   background-color: green;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.dot-red {
+  height: 1em;
+  width: 1em;
+  background-color: red;
   border-radius: 50%;
   display: inline-block;
 }

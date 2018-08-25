@@ -16,7 +16,7 @@
       <div class="input-group-prepend">
         <label class="control-label input-group-text">Priority:</label>
       </div>
-      <%= select f, :priority, [High: 1, Normal: 2, low: 3], selected: 3, class: "form-control input-sm" %>
+      <%= select f, :priority, [Immediate: 1, High: 2, Normal: 3], selected: 3, class: "form-control input-sm" %>
     </div>
   </div>
 

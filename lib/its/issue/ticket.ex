@@ -8,6 +8,7 @@ defmodule Its.Issue.Ticket do
     field :priority, :integer
     field :status, :integer, default: 1
     field :title, :string
+    field :description, :string
 
     timestamps()
   end
@@ -15,7 +16,7 @@ defmodule Its.Issue.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [:title, :priority, :category, :status])
-    |> validate_required([:title, :priority, :category, :status])
+    |> cast(attrs, [:title, :priority, :category, :status, :description])
+    |> validate_required([:title, :priority, :category, :status, :description])
   end
 end

@@ -53,7 +53,7 @@
               <% end %>
             </td>
             <td><%= ticket.category %></td>
-            <td>asdfasdfjasdfasdhjfhasdkjfh jkasdhf the quick brown foxx jumps over the lazzy dog</td>
+            <td><%= ticket.description %></td>
             <td>
               <%= case ticket.status do %>
                 <% 1 -> %>

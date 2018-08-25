@@ -38,6 +38,7 @@ defmodule ItsWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", ClientController, :index
+    post "/", ClientController, :create
   end
 
   # Other scopes may use custom stacks.

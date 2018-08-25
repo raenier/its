@@ -5,7 +5,7 @@ defmodule Its.Issue.Ticket do
 
   schema "tickets" do
     field :category, :string
-    field :priority, :integer
+    field :priority, :integer, default: 3
     field :status, :integer, default: 1
     field :title, :string
     field :description, :string

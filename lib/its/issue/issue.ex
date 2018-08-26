@@ -21,6 +21,16 @@ defmodule Its.Issue do
     Repo.all(Ticket)
   end
 
+  def list_tickets_for_user(user_id) do
+    Ecto.Query.from(t in Its.Issue.Ticket, where: t.client_id == ^user_id)
+    |> Its.Repo.all()
+  end
+
+  def list_tickets_with_assoc do
+    list_tickets()
+    |> Enum.map(&Repo.preload(&1, :client))
+  end
+
   @doc """
   Gets a single ticket.
 

@@ -77,10 +77,8 @@
       </tbody>
     </table>
   </div>
-  <div class="card-footer">
-    <div class="card-text">
+  <div class="card-footer" style="padding-bottom: 0;">
       <%= pagination_links @tickets, previous: ~E(<i class='fas fa-step-backward'></i>), next: ~E(<i class='fas fa-step-forward'></i>) %>
-    </div>
   </div>
 </div>
 

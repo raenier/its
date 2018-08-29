@@ -9,6 +9,10 @@ use Mix.Config
 config :its,
   ecto_repos: [Its.Repo]
 
+# scrivener_html
+config :scrivener_html,
+  routes_helper: Its.Router.Helpers, view_style: :bootstrap_v4
+
 # Configures the endpoint
 config :its, ItsWeb.Endpoint,
   url: [host: "localhost"],

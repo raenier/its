@@ -1,12 +1,18 @@
 defmodule ItsWeb.ClientController do
   use ItsWeb, :controller
+  require Ecto.Query
 
+  alias Ecto.Query
   alias Its.Issue
   alias Its.Issue.Ticket
 
-  def index(conn, _params) do
+  def index(conn, params) do
     user_id = get_session(conn, :current_user_id)
-    tickets = Issue.list_tickets_for_user(user_id)
+    tickets =
+              Ticket
+              |> Query.where([t], t.client_id == ^user_id)
+              |> Its.Repo.paginate(params)
+
     changeset = Issue.change_ticket(%Issue.Ticket{})
     render conn, "index.html", tickets: tickets, changeset: changeset
   end

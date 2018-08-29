@@ -23,11 +23,10 @@
           </th>
           <th class="wdth-15">Title</th>
           <th class="wdth-5">Priority</th>
-          <th class="wdth-5">Category</th>
-          <th class="wdth-25">Description</th>
-          <th class="wdth-10">Status</th>
+          <th class="wdth-10">Category</th>
+          <th class="wdth-30">Description</th>
+          <th class="wdth-15">Status</th>
           <th class="wdth-15">Technician</th>
-          <th class="wdth-15">Client</th>
           <th class="wdth-5"></th>
         </tr>
       </thead>
@@ -69,7 +68,6 @@
                   Undefined
               <% end %>
             </td>
-            <td></td>
             <td></td>
             <td>
               <a href="" ><i class="fas fa-marker"></i></a>

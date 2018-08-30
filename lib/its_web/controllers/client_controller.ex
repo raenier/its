@@ -9,9 +9,9 @@ defmodule ItsWeb.ClientController do
   def index(conn, params) do
     user_id = get_session(conn, :current_user_id)
     tickets =
-              Ticket
-              |> Query.where([t], t.client_id == ^user_id)
-              |> Its.Repo.paginate(params)
+      Ticket
+      |> Query.where([t], t.client_id == ^user_id)
+      |> Its.Repo.paginate(params)
 
     changeset = Issue.change_ticket(%Issue.Ticket{})
     render conn, "index.html", tickets: tickets, changeset: changeset

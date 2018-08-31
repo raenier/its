@@ -17,6 +17,17 @@ defmodule ItsWeb.ClientController do
     render conn, "index.html", tickets: tickets, changeset: changeset
   end
 
+  def active(conn, params) do
+    user_id = get_session(conn, :current_user_id)
+    tickets =
+      Ticket
+      |> Query.where([t], t.client_id == ^user_id and t.status == 2)
+      |> Its.Repo.paginate(params)
+
+    changeset = Issue.change_ticket(%Issue.Ticket{})
+    render conn, "index.html", tickets: tickets, changeset: changeset
+  end
+
   def create(conn, %{"ticket" => ticket}) do
     client_id = get_session(conn, :current_user_id)
     ticket =

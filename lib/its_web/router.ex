@@ -39,6 +39,7 @@ defmodule ItsWeb.Router do
 
     get "/", ClientController, :index
     post "/", ClientController, :create
+    get "/active", ClientController, :active
   end
 
   # Other scopes may use custom stacks.

@@ -64,13 +64,34 @@
                 <% 3 -> %>
                   Done
 
+                <% 4 -> %>
+                  Discarded
+
                 <% _ -> %>
                   Undefined
               <% end %>
             </td>
             <td></td>
             <td>
-              <a href="" ><i class="fas fa-marker"></i></a>
+              <%= case ticket.status do %>
+                <% 1 -> %>
+                  <a class="btn btn-xs btn-outline-warning" href="" ><i class="fas fa-pen"></i></a>
+                  <a class="btn btn-xs btn-outline-danger" href="" ><i class="fas fa-backspace"></i></a>
+
+                <% 2 -> %>
+                  <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
+
+                <% 3 -> %>
+                  <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
+
+                <% 4 -> %>
+                  <a class="btn btn-xs btn-outline-success" href="" ><i class="fas fa-recycle"></i></a>
+                  <a class="btn btn-xs btn-outline-danger" href="" ><i class="fas fa-trash"></i></a>
+
+                <% _ -> %>
+                  &nbsp;
+
+              <% end %>
             </td>
           </tr>
         <% end %>

@@ -20,7 +20,13 @@
       </li>
 
       <li class="nav-item">
-        <%= link to: client_path(@conn, :discarded), class: "nav-link " <> if(@active_tab == 4, do: "active", else: "") do %>
+        <%= link to: client_path(@conn, :done), class: "nav-link " <> if(@active_tab == 4, do: "active", else: "") do %>
+          <i class="fas fa-check-double"></i>&nbsp; Done
+        <% end %>
+      </li>
+
+      <li class="nav-item">
+        <%= link to: client_path(@conn, :discarded), class: "nav-link " <> if(@active_tab == 5, do: "active", else: "") do %>
           <i class="fas fa-ban"></i>&nbsp; Discarded
         <% end %>
       </li>

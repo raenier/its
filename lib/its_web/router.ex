@@ -42,6 +42,7 @@ defmodule ItsWeb.Router do
     get "/active", ClientController, :active
     get "/pending", ClientController, :pending
     get "/discarded", ClientController, :discarded
+    get "/done", ClientController, :done
   end
 
   # Other scopes may use custom stacks.

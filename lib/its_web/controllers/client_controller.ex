@@ -10,7 +10,7 @@ defmodule ItsWeb.ClientController do
     user_id = get_session(conn, :current_user_id)
     tickets =
       Ticket
-      |> Query.where([t], t.client_id == ^user_id)
+      |> Query.where([t], t.client_id == ^user_id and t.status !=4)
       |> Its.Repo.paginate(params)
 
     changeset = Issue.change_ticket(%Issue.Ticket{})

@@ -1,4 +1,3 @@
-<br>
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
@@ -118,7 +117,7 @@
       </tbody>
     </table>
   </div>
-  <div class="card-footer" style="padding-bottom: 0;">
+  <div class="card-footer" style="padding: 0; margin: 0;">
       <%= pagination_links @tickets, previous: ~E(<i class='fas fa-step-backward'></i>), next: ~E(<i class='fas fa-step-forward'></i>) %>
   </div>
 </div>

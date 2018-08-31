@@ -51,6 +51,21 @@ defmodule ItsWeb.ClientController do
       active_tab: active_tab
   end
 
+  def discarded(conn, params) do
+    user_id = get_session(conn, :current_user_id)
+    tickets =
+      Ticket
+      |> Query.where([t], t.client_id == ^user_id and t.status == 4)
+      |> Its.Repo.paginate(params)
+
+    active_tab = 4
+    changeset = Issue.change_ticket(%Issue.Ticket{})
+    render conn, "index.html",
+      tickets: tickets,
+      changeset: changeset,
+      active_tab: active_tab
+  end
+
   def create(conn, %{"ticket" => ticket}) do
     client_id = get_session(conn, :current_user_id)
     ticket =

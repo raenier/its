@@ -20,6 +20,12 @@
         <% end %>
       </li>
 
+      <li class="nav-item">
+        <%= link to: client_path(@conn, :discarded), class: "nav-link " <> if(@active_tab == 4, do: "active", else: "") do %>
+          <i class="fas fa-ban"></i>&nbsp; Discarded
+        <% end %>
+      </li>
+
       <div class="ml-auto">
         <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#addTicketModal" href="#" style="margin: 0;">
           <i class="fas fa-plus"></i>&nbsp;

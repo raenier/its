@@ -1,0 +1,44 @@
+<%= form_for @changeset, @action, fn f -> %>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <label class="control-label input-group-text">
+            <i class="fas fa-signature"></i>
+          </label>
+        </div>
+        <%= text_input f, :title, class: "form-control input-sm", required: "required", placeholder: "Title"%>
+      </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="control-label input-group-text">Priority:</label>
+      </div>
+      <%= select f, :priority, [Immediate: 1, High: 2, Normal: 3], class: "form-control input-sm" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <label class="control-label input-group-text">Category:</label>
+      </div>
+      <%= select f, :category, [Hardware: "hardware", Software: "software"],class: "form-control" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <%= textarea f, :description, class: "form-control input-sm", placeholder: "Description of Problem/Issue", required: "required" %>
+    </div>
+  </div>
+
+  <br>
+  <div class="form-group text-right">
+    <%= submit class: "btn btn-block btn-info" do %>
+      Update
+    <% end %>
+  </div>
+<% end %>

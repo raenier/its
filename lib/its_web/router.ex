@@ -43,6 +43,7 @@ defmodule ItsWeb.Router do
     get "/pending", ClientController, :pending
     get "/discarded", ClientController, :discarded
     get "/done", ClientController, :done
+    put "/:id", ClientController, :update
   end
 
   # Other scopes may use custom stacks.

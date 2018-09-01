@@ -103,7 +103,9 @@
                   <button class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#editTicketModal<%= ticket.id %>">
                       <span class="fas fa-pen"></span>
                   </button>
-                  <a class="btn btn-xs btn-outline-danger" href="" ><i class="fas fa-backspace"></i></a>
+                  <button class="btn btn-outline-danger btn-xs" data-toggle="modal" data-target="#discardTicketModal<%= ticket.id %>">
+                      <span class="fas fa-backspace"></span>
+                  </button>
 
                 <% 2 -> %>
                   <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
@@ -137,6 +139,31 @@
                   <%= render "form_edit.html", changeset: Its.Issue.change_ticket(ticket), action: client_path(@conn, :update, ticket) %>
                 </div>
                 <div class="modal-footer">
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--Confirm Discard-->
+          <div id="discardTicketModal<%= ticket.id %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                  <%= form_for Its.Issue.change_ticket(ticket), client_path(@conn, :discard, ticket), fn f -> %>
+                    <%= hidden_input f, :status, value: 4 %>
+                    <div class="form-group text-center">
+                      Discard Ticket?
+                      <%= submit [class: "btn btn-outline-success"] do %>
+                        yes
+                      <% end %>
+                      <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close">
+                        no
+                      </button>
+                    </div>
+                  <% end %>
                 </div>
               </div>
             </div>

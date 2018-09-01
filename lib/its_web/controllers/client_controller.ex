@@ -108,4 +108,17 @@ defmodule ItsWeb.ClientController do
         |> redirect(to: client_path(conn, :index))
     end
   end
+
+  def discard(conn, %{"id" => id, "ticket" => attrs}) do
+    ticket = Issue.get_ticket! id
+    case Issue.update_ticket(ticket, attrs) do
+      {:ok, ticket} ->
+        conn
+        |> redirect(to: client_path(conn, :index))
+
+      {:error, Changeset} ->
+        conn
+        |> redirect(to: client_path(conn, :index))
+    end
+  end
 end

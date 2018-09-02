@@ -40,7 +40,7 @@ defmodule ItsWeb.AdminController do
   end
 
   def index_tech(conn, _params) do
-    users = Accounts.list_users_only(["technician"])
+    users = Accounts.list_users_only(["technician", "headtech"])
     changeset = Accounts.change_user(%Accounts.User{})
     active_tab = 3
     render conn, "index.html", users: users, changeset: changeset, active_tab: active_tab

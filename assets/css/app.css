@@ -72,6 +72,10 @@ table {
   width: 20%;
 }
 
+.wdth-30 {
+  width: 30%;
+}
+
 .btn-group-xs > .btn, .btn-xs, .pagination {
   padding  : .20rem .4rem !important;
   font-size  : .700rem !important;

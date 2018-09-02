@@ -114,8 +114,13 @@
                   <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
 
                 <% 4 -> %>
-                  <a class="btn btn-xs btn-outline-success" href="" ><i class="fas fa-recycle"></i></a>
-                  <a class="btn btn-xs btn-outline-danger" href="" ><i class="fas fa-trash"></i></a>
+                  <button class="btn btn-outline-success btn-xs" data-toggle="modal" data-target="#recycleTicketModal<%= ticket.id %>">
+                      <span class="fas fa-recycle"></span>
+                  </button>
+                  <%= link to: client_path(@conn, :delete, ticket), method: "delete", class: "btn btn-outline-danger btn-xs",
+                    data: [confirm: "Permanently Delete Ticket?"] do %>
+                    <span class="fas fa-trash"></span>
+                  <% end %>
 
                 <% _ -> %>
                   &nbsp;
@@ -123,13 +128,14 @@
               <% end %>
             </td>
           </tr>
+
           <!--EDIT MODAL-->
           <div id="editTicketModal<%= ticket.id %>" class="modal fade" role="dialog">
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
                   <h5 class="modal-title">
-                    <i class="fas fa-tags"></i>&nbsp; Add Ticket
+                    <i class="fas fa-tags"></i>&nbsp; Edit Ticket
                   </h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -143,16 +149,12 @@
               </div>
             </div>
           </div>
-
           <!--Confirm Discard-->
           <div id="discardTicketModal<%= ticket.id %>" class="modal fade" role="dialog">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-sm">
               <div class="modal-content">
                 <div class="modal-body">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
-                  <%= form_for Its.Issue.change_ticket(ticket), client_path(@conn, :discard, ticket), fn f -> %>
+                  <%= form_for Its.Issue.change_ticket(ticket), client_path(@conn, :update_ticket_status, ticket), fn f -> %>
                     <%= hidden_input f, :status, value: 4 %>
                     <div class="form-group text-center">
                       Discard Ticket?
@@ -168,6 +170,29 @@
               </div>
             </div>
           </div>
+
+          <!--Recycle-->
+          <div id="recycleTicketModal<%= ticket.id %>" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-sm">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <%= form_for Its.Issue.change_ticket(ticket), client_path(@conn, :update_ticket_status, ticket), fn f -> %>
+                    <%= hidden_input f, :status, value: 1 %>
+                    <div class="form-group text-center">
+                      Reuse Ticket?
+                      <%= submit [class: "btn btn-outline-success"] do %>
+                        yes
+                      <% end %>
+                      <button type="button" class="btn btn-dark" data-dismiss="modal" aria-label="Close">
+                        no
+                      </button>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+
 
         <% end %>
       </tbody>

@@ -109,7 +109,7 @@ defmodule ItsWeb.ClientController do
     end
   end
 
-  def discard(conn, %{"id" => id, "ticket" => attrs}) do
+  def update_ticket_status(conn, %{"id" => id, "ticket" => attrs}) do
     ticket = Issue.get_ticket! id
     case Issue.update_ticket(ticket, attrs) do
       {:ok, ticket} ->
@@ -120,5 +120,12 @@ defmodule ItsWeb.ClientController do
         conn
         |> redirect(to: client_path(conn, :index))
     end
+  end
+
+  def delete(conn, %{"id" => id}) do
+    ticket = Issue.get_ticket! id
+    Issue.delete_ticket(ticket)
+
+    redirect(conn, to: client_path(conn, :index))
   end
 end

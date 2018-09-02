@@ -9,16 +9,6 @@ defmodule ItsWeb.AdminController do
     if user_id = get_session(conn, :current_user_id) do
       current_user = Accounts.get_user!(user_id)
       case current_user.type do
-        "client" ->
-          conn
-          |> redirect(to: page_path(conn, :index))
-          |> halt()
-
-        "technician" ->
-          conn
-          |> redirect(to: page_path(conn, :index))
-          |> halt()
-
         "admin" ->
           conn
           |> assign(:current_user, current_user)

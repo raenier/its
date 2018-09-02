@@ -62,7 +62,15 @@
                 </a>
               </li>
 
+            <% "headtech" -> %>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
+                </a>
+              </li>
+
             <% _ -> %>
+
           <% end %>
         <% end %>
         </ul>
@@ -79,6 +87,11 @@
 
                     <% "client" -> %>
                       <i class="fas fa-user"></i>
+
+                    <% "headtech" -> %>
+                      <i class="fas fa-user-secret"></i>
+
+                    <% _ -> %>
 
                   <% end %>
                   <i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out

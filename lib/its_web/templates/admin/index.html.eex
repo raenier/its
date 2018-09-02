@@ -28,11 +28,11 @@
     <table class="table table-sm table-hover no-top-border">
       <thead>
         <tr>
-          <th>User Name</th>
-          <th>Name</th>
-          <th>Type</th>
-          <th>Password</th>
-          <th></th>
+          <th class="wdth-10">User Name</th>
+          <th class="wdth-15">Name</th>
+          <th class="wdth-5">Type</th>
+          <th class="wdth-30">Password</th>
+          <th class="wdth-5"></th>
         </tr>
       </thead>
       <tbody>
@@ -43,10 +43,10 @@
           <td><%= user.type %></td>
           <td>
             <div class="input-group col-7">
-              <input type=password class="form-control form-control-sm" disabled value=<%= user.password %> id="pass<%= user.id %>">
+              <input type=password class="form-control form-control-sm" style="height: 20px;" disabled value=<%= user.password %> id="pass<%= user.id %>">
               </input>
-              <div class="input-group-append">
-                <button class="btn btn-sm" onclick="reveal('pass<%= user.id %>')">
+              <div class="input-group-append" style="height: 20px;">
+                <button class="btn btn-xs" onclick="reveal('pass<%= user.id %>')">
                   <span class="far fa-eye"></span>
                 </button>
               </div>
@@ -54,10 +54,10 @@
           </td>
 
           <td class="text-right">
-            <button class="btn btn-outline-info btn-sm" data-toggle="modal" data-target="#editUserModal<%=user.id%>">
+            <button class="btn btn-outline-info btn-xs" data-toggle="modal" data-target="#editUserModal<%=user.id%>">
                 <span class="fas fa-marker"></span>
             </button>
-              <%= link to: admin_path(@conn, :delete, user, @active_tab), method: "delete", class: "btn btn-outline-danger btn-sm",
+              <%= link to: admin_path(@conn, :delete, user, @active_tab), method: "delete", class: "btn btn-outline-danger btn-xs",
                 data: [confirm: "Delete User?"] do %>
                 <span class="fas fa-trash"></span>
               <% end %>

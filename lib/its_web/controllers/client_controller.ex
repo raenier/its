@@ -5,6 +5,29 @@ defmodule ItsWeb.ClientController do
   alias Ecto.Query
   alias Its.Issue
   alias Its.Issue.Ticket
+  alias Its.Accounts
+
+  plug :check_client_auth
+
+  defp check_client_auth(conn, _args) do
+    if user_id = get_session(conn, :current_user_id) do
+      current_user = Accounts.get_user!(user_id)
+      case current_user.type do
+        "client" ->
+          conn
+          |> assign(:current_user, current_user)
+
+        _ ->
+          conn
+          |> redirect(to: session_path(conn, :new))
+          |> halt()
+      end
+    else
+      conn
+      |> redirect(to: session_path(conn, :new))
+      |> halt()
+    end
+  end
 
   def index(conn, params) do
     user_id = get_session(conn, :current_user_id)

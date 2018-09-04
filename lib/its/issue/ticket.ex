@@ -6,6 +6,7 @@ defmodule Its.Issue.Ticket do
 
   schema "tickets" do
     belongs_to :client, User
+    belongs_to :tech, User
 
     field :category, :string
     field :priority, :integer, default: 3
@@ -19,7 +20,7 @@ defmodule Its.Issue.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id])
+    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id, :tech_id])
     |> validate_required([:title, :priority, :category, :status, :description])
   end
 end

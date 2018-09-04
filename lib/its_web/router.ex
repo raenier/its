@@ -48,10 +48,10 @@ defmodule ItsWeb.Router do
     delete "/:id", ClientController, :delete
   end
 
-  scope "/tech", ItsWeb do
+  scope "/headtech", ItsWeb do
     pipe_through :browser # Use the default browser stack
 
-    get "/", TechController, :index
+    get "/", HeadtechController, :index
   end
   # Other scopes may use custom stacks.
   # scope "/api", ItsWeb do

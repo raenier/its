@@ -29,4 +29,15 @@ defmodule ItsWeb.HeadtechController  do
         |> redirect(to: headtech_path(conn, :index))
     end
   end
+
+  def tasks(conn, params) do
+    user_id = get_session(conn, :current_user_id)
+    tickets =
+      Ticket
+      |> Query.where([t], t.status == 2 and t.tech_id == ^user_id)
+      |> Its.Repo.paginate(params)
+
+    name_and_id = Accounts.map_name_id(["headtech", "technician"])
+    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id)
+  end
 end

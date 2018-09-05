@@ -6,6 +6,12 @@
           <i class="fas fa-ticket-alt"></i>&nbsp; Pending Tickets
         <% end %>
       </li>
+
+      <li class="nav-item">
+        <%= link to: headtech_path(@conn, :tasks), class: "nav-link" do %>
+          <i class="fas fa-shipping-fast"></i> Tasks
+        <% end %>
+      </li>
     </ul>
   </div>
   <div class="card-body padding-10">

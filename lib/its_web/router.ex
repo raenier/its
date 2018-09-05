@@ -52,6 +52,7 @@ defmodule ItsWeb.Router do
     pipe_through :browser # Use the default browser stack
 
     get "/", HeadtechController, :index
+    get "/tasks", HeadtechController, :tasks
     put "/ticket/:id", HeadtechController, :assign
   end
   # Other scopes may use custom stacks.

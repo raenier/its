@@ -18,6 +18,10 @@ defmodule ItsWeb.HeadtechController  do
   end
 
   def assign(conn, %{"id" => id, "ticket" => attrs}) do
+    user_id = get_session(conn, :current_user_id)
+    #also put htech_id to know who assigned the ticket
+    attrs = Map.put(attrs, "htech_id", user_id)
+
     ticket = Issue.get_ticket! id
     case Issue.assign_tech_and_update_status(ticket, attrs) do
       {:ok, ticket} ->

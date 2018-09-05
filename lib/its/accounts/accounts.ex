@@ -25,6 +25,12 @@ defmodule Its.Accounts do
     query = from u in User, where: u.type in ^criteria
     Repo.all(query)
   end
+
+  def map_name_id(usertypes) do
+    list_users_only(usertypes)
+    |> Enum.map(fn user -> {:"#{user.first_name <> " " <> user.last_name}", user.id} end)
+  end
+
   @doc """
   Gets a single user.
 

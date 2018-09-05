@@ -20,7 +20,8 @@
           <th class="wdth-10">Category</th>
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
-          <th class="wdth-15">Client</th>
+          <th class="wdth-10">Technician</th>
+          <th class="wdth-10">Client</th>
           <th class="wdth-5"></th>
         </tr>
       </thead>
@@ -65,7 +66,13 @@
                   Undefined
               <% end %>
             </td>
-            <td></td>
+            <td>
+              <% ticket = Its.Repo.preload(ticket, [:tech, :client]) %>
+              <%= unless is_nil(ticket.tech), do: ticket.tech.first_name, else: "Not yet assigned" %>
+            </td>
+            <td>
+              <%= unless is_nil(ticket.client), do: ticket.client.first_name, else: "Anonymous" %>
+            </td>
             <td>
               <%= case ticket.status do %>
                 <% 1 -> %>
@@ -108,6 +115,17 @@
                   </button>
                 </div>
                 <div class="modal-body">
+                  <%= form_for Its.Issue.change_ticket(ticket), headtech_path(@conn, :assign, ticket), fn f -> %>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="control-label input-group-text"><i class="fab fa-superpowers"></i></label>
+                        </div>
+                        <%= select f, :tech_id, @name_and_id, class: "form-control" %>
+                        <%= submit "ASSIGN", class: "btn btn-outline-success" %>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
               </div>
             </div>

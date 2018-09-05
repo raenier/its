@@ -83,6 +83,12 @@ defmodule Its.Issue do
     |> Repo.update()
   end
 
+  def assign_tech_and_update_status(%{} = ticket, attrs) do
+    attrs = Map.put(attrs, "status", 2)
+    ticket
+    |> update_ticket(attrs)
+  end
+
   @doc """
   Deletes a Ticket.
 

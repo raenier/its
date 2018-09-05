@@ -96,7 +96,10 @@
                   Undefined
               <% end %>
             </td>
-            <td></td>
+            <td>
+              <% ticket = Its.Repo.preload(ticket, :tech) %>
+              <%= unless is_nil(ticket.tech), do: ticket.tech.first_name, else: "Not Yet Assigned" %>
+            </td>
             <td>
               <%= case ticket.status do %>
                 <% 1 -> %>

@@ -12,9 +12,9 @@ defmodule ItsWeb.HeadtechController  do
       Ticket
       |> Query.where([t], t.status !=4 and t.status == 1)
       |> Its.Repo.paginate(params)
-
+    active_tab = 1
     name_and_id = Accounts.map_name_id(["headtech", "technician"])
-    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id)
+    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab)
   end
 
   def assign(conn, %{"id" => id, "ticket" => attrs}) do
@@ -37,7 +37,8 @@ defmodule ItsWeb.HeadtechController  do
       |> Query.where([t], t.status == 2 and t.tech_id == ^user_id)
       |> Its.Repo.paginate(params)
 
+    active_tab = 2
     name_and_id = Accounts.map_name_id(["headtech", "technician"])
-    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id)
+    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab)
   end
 end

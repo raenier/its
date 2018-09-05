@@ -2,13 +2,13 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <%= link to: headtech_path(@conn, :index), class: "nav-link active" do %>
+        <%= link to: headtech_path(@conn, :index), class: "nav-link " <> if(@active_tab == 1, do: "active", else: "") do %>
           <i class="fas fa-ticket-alt"></i>&nbsp; Pending Tickets
         <% end %>
       </li>
 
       <li class="nav-item">
-        <%= link to: headtech_path(@conn, :tasks), class: "nav-link" do %>
+        <%= link to: headtech_path(@conn, :tasks), class: "nav-link " <> if(@active_tab == 2, do: "active", else: "") do %>
           <i class="fas fa-shipping-fast"></i> Tasks
         <% end %>
       </li>

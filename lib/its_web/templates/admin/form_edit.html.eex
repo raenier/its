@@ -22,22 +22,6 @@
     </div>
   </div>
 
-  <div class="form-group">
-    <div class="input-group">
-      <div class="input-group-prepend">
-        <label class="control-label input-group-text">Type:</label>
-      </div>
-      <%= select f, :type, [Client: "client", "Head Tech": "headtech", Technician: "technician"], class: "form-control", disabled: "disabled" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="input-group">
-      <%= text_input f, :password, type: "password", class: "form-control input-sm", disabled: "disabled", placeholder: "Password", required: "required" %>
-    </div>
-    <p id="errmessage"></p>
-  </div>
-
   <br>
   <div class="form-group text-right">
     <%= submit [id: "submit_user", class: "btn btn-block btn-secondary"] do %>

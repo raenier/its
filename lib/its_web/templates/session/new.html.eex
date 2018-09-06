@@ -48,6 +48,7 @@
                 <i class="fas fa-external-link-square-alt"></i>
               <% end %>
             </div>
+        <p class="red"><%= get_flash(@conn, :error) %></p>
         <% end %>
     </div>
   </div>

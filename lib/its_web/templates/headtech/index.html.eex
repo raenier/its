@@ -12,6 +12,12 @@
           <i class="fas fa-shipping-fast"></i> Tasks
         <% end %>
       </li>
+
+      <li class="nav-item">
+        <%= link to: headtech_path(@conn, :to_others), class: "nav-link " <> if(@active_tab == 3, do: "active", else: "") do %>
+          <i class="fab fa-superpowers"></i> Assigned to Others
+        <% end %>
+      </li>
     </ul>
   </div>
   <div class="card-body padding-10">

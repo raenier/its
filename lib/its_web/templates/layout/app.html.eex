@@ -98,7 +98,14 @@
                 <% end %>
               <%= else %>
                 <%= link to: session_path(@conn, :new), class: "nav-link link-white" do %>
-                  <i class="fas fa-sign-in-alt"></i>&nbsp;Sign In&nbsp;&nbsp;&nbsp;
+                  <i class="fas fa-sign-in-alt"></i>
+                  &nbsp;
+                  <%= unless @admin_count == 0 do  %>
+                    Sign In
+                  <% else %>
+                    Sign Up
+                  <% end %>
+                  &nbsp;&nbsp;&nbsp;
                 <% end %>
               <% end %>
             </a>

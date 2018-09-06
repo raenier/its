@@ -21,6 +21,7 @@ defmodule ItsWeb.Router do
     get "/sign-in", SessionController, :new
     post "/sign-in", SessionController, :create
     delete "/sign-in", SessionController, :delete
+    post "/sign-up", SessionController, :sign_up
   end
 
   scope "/admin", ItsWeb do

@@ -33,6 +33,8 @@ defmodule ItsWeb.Router do
     post "/", AdminController, :create
     delete "/:id/:tab", AdminController, :delete
     put "/:id", AdminController, :update
+    get "/devices", AdminController, :devices
+    post "/devices", AdminController, :create_device
   end
 
   scope "/client", ItsWeb do

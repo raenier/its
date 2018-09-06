@@ -1,0 +1,56 @@
+<%= form_for @changeset, @action, fn f -> %>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">Model:</label></div>
+        <%= text_input f, :model, class: "form-control input-sm", required: "required" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">O.S.:</label></div>
+        <%= text_input f, :os, class: "form-control input-sm", required: "required" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">Type:</label></div>
+        <%= select f, :type, ["Laptop": "laptop", "Desktop": "desktop"], class: "form-control input-sm",required: "required" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">Processor:</label></div>
+        <%= text_input f, :processor, class: "form-control input-sm",required: "required" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">Ram:</label></div>
+        <%= text_input f, :ram, class: "form-control input-sm",required: "required" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">Graphics:</label></div>
+        <%= text_input f, :graphics, class: "form-control input-sm",required: "required" %>
+      </div>
+  </div>
+
+  <div class="form-group">
+      <div class="input-group">
+        <div class="input-group-prepend"><label class="control-label input-group-text">User:</label></div>
+        <%= select f, :user_id, @clients, class: "form-control input-sm",required: "required" %>
+      </div>
+  </div>
+
+  <br>
+  <div class="form-group text-right">
+    <%= submit "  ", id: "submit_user",class: "btn btn-block btn-secondary fas fa-share-square" %>
+  </div>
+<% end %>

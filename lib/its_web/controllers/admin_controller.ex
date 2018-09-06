@@ -2,6 +2,8 @@ defmodule ItsWeb.AdminController do
   use ItsWeb, :controller
 
   alias Its.Accounts
+  alias Its.Devices
+  alias Its.Devices.Computer
 
   plug :check_admin_auth when action in [:index_all, :index_clients, :index_tech, :create, :delete, :update]
 
@@ -44,6 +46,27 @@ defmodule ItsWeb.AdminController do
     changeset = Accounts.change_user(%Accounts.User{})
     active_tab = 3
     render conn, "index.html", users: users, changeset: changeset, active_tab: active_tab
+  end
+
+  def devices(conn, params) do
+    computers = Its.Devices.list_computers()
+    changeset = Its.Devices.Computer.changeset(%Computer{}, %{})
+    clients = Accounts.map_name_id(["client"])
+    render conn, "devices.html", computers: computers, changeset: changeset, clients: clients
+  end
+
+  def create_device(conn, %{"computer" => attrs}) do
+    case Devices.create_computer(attrs) do
+      {:ok, user} ->
+        conn
+        |> put_flash(:info, "Device succesfully added")
+        |> redirect(to: admin_path(conn, :devices))
+
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Input invalid/error")
+        |> redirect(to: admin_path(conn, :devices))
+    end
   end
 
   def create(conn, %{"user" => attrs}) do

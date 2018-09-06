@@ -47,6 +47,11 @@
                 <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
               </a>
             </li>
+            <li class="nav-item">
+              <%= link [to: admin_path(@conn, :devices), class: "nav-link"] do %>
+                <i class="fas fa-laptop"></i>&nbsp;Devices
+              <% end %>
+            </li>
 
             <% "client" -> %>
               <li class="nav-item">

@@ -6,6 +6,7 @@ defmodule ItsWeb.ClientController do
   alias Its.Issue
   alias Its.Issue.Ticket
   alias Its.Accounts
+  alias Its.Devices
 
   plug :check_client_auth
 
@@ -38,10 +39,12 @@ defmodule ItsWeb.ClientController do
 
     active_tab = 1
     changeset = Issue.change_ticket(%Issue.Ticket{})
+    deviceopt = Devices.map_model_id()
     render conn, "index.html",
       tickets: tickets,
       changeset: changeset,
-      active_tab: active_tab
+      active_tab: active_tab,
+      deviceopt: deviceopt
   end
 
   def active(conn, params) do

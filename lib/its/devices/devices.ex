@@ -21,6 +21,11 @@ defmodule Its.Devices do
     Repo.all(Computer)
   end
 
+  def map_model_id() do
+    list_computers()
+    |> Enum.map(&({:"#{&1.model}", &1.id}))
+  end
+
   @doc """
   Gets a single computer.
 

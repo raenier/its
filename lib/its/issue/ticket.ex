@@ -4,12 +4,14 @@ defmodule Its.Issue.Ticket do
 
   alias Its.Accounts.User
   alias Its.Devices.Computer
+  alias Its.Issue.Task
 
   schema "tickets" do
     belongs_to :client, User
     belongs_to :tech, User
     belongs_to :htech, User
     belongs_to :device, Computer
+    has_many :tasks, Task
 
     field :category, :string
     field :priority, :integer, default: 3
@@ -24,7 +26,7 @@ defmodule Its.Issue.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id, :tech_id, :htech_id, :device_id])
+    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id, :tech_id, :htech_id, :device_id, :progress])
     |> validate_required([:title, :priority, :category, :status, :description])
   end
 end

@@ -57,7 +57,10 @@ defmodule ItsWeb.Router do
     get "/", HeadtechController, :index
     get "/tasks", HeadtechController, :tasks
     get "/assigned", HeadtechController, :to_others
-    put "/ticket/:id", HeadtechController, :assign
+    put "/ticket/:id/tech", HeadtechController, :assign
+    get "/ticket/:id", HeadtechController, :show
+    put "/ticket/:id", HeadtechController, :update
+    post "/ticket/:id/task", HeadtechController, :create_task
   end
   # Other scopes may use custom stacks.
   # scope "/api", ItsWeb do

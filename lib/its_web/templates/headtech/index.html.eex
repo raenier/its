@@ -93,19 +93,15 @@
                   </button>
 
                 <% 2 -> %>
-                  <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
+                  <%= link to: headtech_path(@conn, :show, ticket), class: "btn btn-outline-info btn-xs" do %>
+                    <span class="fas fa-book-open"></span>
+                  <% end %>
 
                 <% 3 -> %>
-                  <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
-
-                <% 4 -> %>
-                  <button class="btn btn-outline-success btn-xs" data-toggle="modal" data-target="#recycleTicketModal<%= ticket.id %>">
-                      <span class="fas fa-recycle"></span>
-                  </button>
-                  <%= link to: client_path(@conn, :delete, ticket), method: "delete", class: "btn btn-outline-danger btn-xs",
-                    data: [confirm: "Permanently Delete Ticket?"] do %>
-                    <span class="fas fa-trash"></span>
+                  <%= link to: headtech_path(@conn, :show, ticket), class: "btn btn-outline-info btn-xs" do %>
+                    <span class="fas fa-book-open"></span>
                   <% end %>
+
 
                 <% _ -> %>
                   &nbsp;

@@ -68,6 +68,7 @@ defmodule ItsWeb.HeadtechController  do
     end
   end
 
+  #TODO can only update task that belongs to you
   def update_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id, "task" => attrs}) do
     task = Issue.get_task! task_id
     case Issue.update_task(task, attrs) do
@@ -78,6 +79,18 @@ defmodule ItsWeb.HeadtechController  do
         conn
         |> put_flash(:error, "Error Updating Task")
         |> redirect(to: headtech_path(conn, :show, ticket_id))
+    end
+  end
+
+  #TODO can only delete task that belongs to you
+  def delete_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id}) do
+    task = Issue.get_task! task_id
+    case Issue.delete_task task do
+      {:ok, task} ->
+        redirect(conn, to: headtech_path(conn, :show, ticket_id))
+
+      _ ->
+        redirect(conn, to: headtech_path(conn, :show, ticket_id))
     end
   end
 

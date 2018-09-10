@@ -62,6 +62,7 @@ defmodule ItsWeb.Router do
     put "/ticket/:id", HeadtechController, :update
     post "/ticket/:id/task", HeadtechController, :create_task
     put "/ticket/:ticketid/task/:taskid", HeadtechController, :update_task
+    delete "/ticket/:ticketid/task/:taskid", HeadtechController, :delete_task
   end
   # Other scopes may use custom stacks.
   # scope "/api", ItsWeb do

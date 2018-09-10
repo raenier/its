@@ -163,7 +163,10 @@
 
           <div class="col-sm-2">
             <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editTaskModal<%= task.id %>"><i class="fas fa-pen"></i></button>
-            <button class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></button>
+              <%= link to: headtech_path(@conn, :delete_task, @ticket, task), method: "delete", class: "btn btn-danger btn-xs",
+                data: [confirm: "Delete Task?"] do %>
+                <span class="fas fa-trash"></span>
+              <% end %>
           </div>
           </div>
           <hr/>

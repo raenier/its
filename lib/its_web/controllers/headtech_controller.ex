@@ -71,11 +71,19 @@ defmodule ItsWeb.HeadtechController  do
   #TODO can only update task that belongs to you
   def update_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id, "task" => attrs}) do
     task = Issue.get_task! task_id
-    case Issue.update_task(task, attrs) do
-      {:ok, task} ->
-        redirect(conn, to: headtech_path(conn, :show, ticket_id))
+    user_id = get_session(conn, :current_user_id)
 
-      {:error, changeset} ->
+    if user_id == task.user_id do
+      case Issue.update_task(task, attrs) do
+        {:ok, task} ->
+          redirect(conn, to: headtech_path(conn, :show, ticket_id))
+
+        {:error, changeset} ->
+          conn
+          |> put_flash(:error, "Error Updating Task")
+          |> redirect(to: headtech_path(conn, :show, ticket_id))
+      end
+    else
         conn
         |> put_flash(:error, "Error Updating Task")
         |> redirect(to: headtech_path(conn, :show, ticket_id))
@@ -85,12 +93,17 @@ defmodule ItsWeb.HeadtechController  do
   #TODO can only delete task that belongs to you
   def delete_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id}) do
     task = Issue.get_task! task_id
-    case Issue.delete_task task do
-      {:ok, task} ->
-        redirect(conn, to: headtech_path(conn, :show, ticket_id))
 
-      _ ->
-        redirect(conn, to: headtech_path(conn, :show, ticket_id))
+    if user_id == task.user_id do
+      case Issue.delete_task task do
+        {:ok, task} ->
+          redirect(conn, to: headtech_path(conn, :show, ticket_id))
+
+        _ ->
+          redirect(conn, to: headtech_path(conn, :show, ticket_id))
+      end
+    else
+      redirect(conn, to: headtech_path(conn, :show, ticket_id))
     end
   end
 

@@ -118,7 +118,7 @@
           </div>
 
           <div class="form-group text-right">
-            <%= submit class: "btn btn-sm btn-block btn-info", disabled: "disabled", id: "submit-ticket" do %>
+            <div class="form-control text-center">
               <%= case @ticket.status do %>
                 <% 1 -> %>
                   Still On Going
@@ -127,7 +127,7 @@
                   Still On Going
 
                 <% 3 -> %>
-                  DONE <i class="fas fa-check-double"></i>
+                  <span class="text-success">DONE</span> <i class="fas fa-check-double text-success"></i>
 
                 <% 4 -> %>
                   Discarded <i class="fas fa-cross"></i>
@@ -135,7 +135,7 @@
                 <%_ ->%>
                   Unknown Status
               <% end %>
-            <% end %>
+            </div>
           </div>
       </div>
     </div>
@@ -143,7 +143,8 @@
 
   <div class="col-sm-7">
     <div class="card">
-      <div class="card-header text-right">
+      <div class="card-header text-left">
+        <i class="fas fa-tasks"></i>
       </div>
       <div class="card-body scroll">
         <%= for task <- @ticket.tasks do %>

@@ -93,6 +93,7 @@ defmodule ItsWeb.HeadtechController  do
   #TODO can only delete task that belongs to you
   def delete_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id}) do
     task = Issue.get_task! task_id
+    user_id = get_session(conn, :current_user_id)
 
     if user_id == task.user_id do
       case Issue.delete_task task do

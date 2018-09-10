@@ -23,11 +23,12 @@ defmodule ItsWeb.HeadtechController  do
       id
       |> Issue.get_ticket!
       |> Its.Repo.preload([:client, :tech, :htech, :device, tasks: [:user]])
+    user_id = get_session(conn, :current_user_id)
 
     changeset = Issue.change_ticket(ticket)
     changeset_task = Task.changeset(%Task{}, %{})
 
-    render conn, "show.html", ticket: ticket, changeset_task: changeset_task, changeset: changeset
+    render conn, "show.html", ticket: ticket, current_user_id: user_id, changeset_task: changeset_task, changeset: changeset
   end
 
   def update(conn, %{"id" => id, "ticket" => attrs}) do

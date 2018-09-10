@@ -1,0 +1,164 @@
+<div class="container">
+<div class="row">
+
+  <div class="col-sm-5">
+    <div class="card">
+      <div class="card-header
+        <%= case @ticket.priority do %>
+          <% 1 -> %>
+            bg-danger
+
+          <% 2 -> %>
+            bg-warning
+
+          <% 3 -> %>
+            bg-success
+
+          <%_ -> %>
+            bg-info
+
+        <% end %>
+        text-white padding-10-5">
+        <h6 class="no-margin"><i class="fas fa-tag"></i><b>&nbsp; <%= String.upcase @ticket.title %></b></h6>
+      </div>
+      <div class="card-body">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">Device:</label>
+              </div>
+              <label class="form-control input-sm"><%= unless is_nil(@ticket.device), do: @ticket.device.model %></label>
+              <div class="input-group-append">
+                <div class="input-group-text" data-placement="auto" data-toggle="tooltip" data-html="true"
+                  title="<b>Processor</b>: <em><%= unless is_nil(@ticket.device), do: @ticket.device.processor %></em>
+                  <br/> <b>Ram:</b> <em><%= unless is_nil(@ticket.device), do: @ticket.device.ram %></em>
+                  <br/> <b>OS:</b> <em><%=unless is_nil(@ticket.device), do: @ticket.device.os %></em>
+                  <br/> <b>Graphics:</b> <em><%= unless is_nil(@ticket.device), do: @ticket.device.graphics %></em>
+                  <br/> <b>Type:</b> <em><%= unless is_nil(@ticket.device), do: @ticket.device.type %></em>">
+                  <i class="fas fa-desktop"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">Priority:</label>
+              </div>
+              <label class="form-control">
+                <%= case @ticket.priority do %>
+                  <% 3 -> %>
+                    Normal
+
+                  <% 2 -> %>
+                    High
+
+                  <% 1 -> %>
+                    Immediate
+
+                  <% _ -> %>
+                    Unknown/No Input
+                <% end %>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">Category:</label>
+              </div>
+              <label class="form-control"><%= String.capitalize @ticket.category %></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+          <div class="card">
+            <div class="card-body padding-10">
+              <%= @ticket.description %>
+            </div>
+          </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">
+                  <i class="fas fa-user"></i>&nbsp; Client:
+                </label>
+              </div>
+              <label class="form-control">
+                <%= unless is_nil(@ticket.client), do: String.capitalize(@ticket.client.first_name) <> " " <> String.capitalize(@ticket.client.last_name) %>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">
+                  <i class="fas fa-user-tie"></i>&nbsp; Technician:
+                </label>
+              </div>
+              <label class="form-control">
+                <%= unless is_nil(@ticket.tech), do: String.capitalize(@ticket.tech.first_name) <> " " <> String.capitalize(@ticket.tech.last_name) %>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+                Progress:
+                <div class="progress">
+                  <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar"
+                    aria-valuenow="<%= @ticket.progress %>" aria-valuemin="0" aria-valuemax="100" style="width: <%= @ticket.progress %>%">
+                    <%= @ticket.progress %>%
+                  </div>
+                </div>
+          </div>
+
+          <div class="form-group text-right">
+            <%= submit class: "btn btn-sm btn-block btn-info", disabled: "disabled", id: "submit-ticket" do %>
+              <%= case @ticket.status do %>
+                <% 1 -> %>
+                  Still On Going
+
+                <% 2 -> %>
+                  Still On Going
+
+                <% 3 -> %>
+                  DONE <i class="fas fa-check-double"></i>
+
+                <% 4 -> %>
+                  Discarded <i class="fas fa-cross"></i>
+
+                <%_ ->%>
+                  Unknown Status
+              <% end %>
+            <% end %>
+          </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-7">
+    <div class="card">
+      <div class="card-header text-right">
+      </div>
+      <div class="card-body scroll">
+        <%= for task <- @ticket.tasks do %>
+          <div class="row">
+          <div class="col-sm-10">
+            <p class="mb-0"><small><u><%= task.description %></u></small></p>
+            <footer class="blockquote-footer"><b>by:</b> <cite title="Source Title"><%= unless is_nil(task.user), do: task.user.first_name <> " " <> task.user.last_name %></cite></footer>
+          </div>
+          </div>
+          <hr/>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>

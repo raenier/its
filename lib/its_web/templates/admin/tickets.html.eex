@@ -1,0 +1,92 @@
+<div class="card text-center">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <%= link to: client_path(@conn, :index), class: "nav-link active" do %>
+          <i class="fas fa-ticket-alt"></i>&nbsp; All Tickets
+        <% end %>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body padding-10">
+    <table class="table table-bordered table-hover table-sm table-hover no-top-border hide-text-overflow">
+      <thead>
+        <tr>
+          <th class="wdth-5">
+            <i class="fas fa-code-branch"></i>
+          </th>
+          <th class="wdth-15">Title</th>
+          <th class="wdth-5">Priority</th>
+          <th class="wdth-10">Category</th>
+          <th class="wdth-30">Description</th>
+          <th class="wdth-15">Status</th>
+          <th class="wdth-15">Technician</th>
+          <th class="wdth-5"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= for ticket <- @tickets do %>
+          <tr>
+            <td><%= ticket.id %></td>
+            <td><%= ticket.title %></td>
+            <td>
+              <%= case ticket.priority do %>
+                <% 1 -> %>
+                  <span class="dot-red"></span>
+
+                <% 2 -> %>
+                  <span class="dot-orange"></span>
+
+                <% 3 -> %>
+                  <span class="dot-green"></span>
+
+                <% _ -> %>
+                  Undefined
+
+              <% end %>
+            </td>
+            <td><%= ticket.category %></td>
+            <td><%= ticket.description %></td>
+            <td>
+              <%= case ticket.status do %>
+                <% 1 -> %>
+                  For Confirmation
+
+                <% 2 -> %>
+                  On Going
+
+                <% 3 -> %>
+                  Done
+
+                <% 4 -> %>
+                  Discarded
+
+                <% _ -> %>
+                  Undefined
+              <% end %>
+            </td>
+            <td>
+              <% ticket = Its.Repo.preload(ticket, :tech) %>
+              <%= unless is_nil(ticket.tech), do: ticket.tech.first_name, else: "Not Yet Assigned" %>
+            </td>
+            <td>
+              <%= link to: admin_path(@conn, :show_ticket, ticket), class: "btn btn-outline-info btn-xs" do %>
+                <i class="fas fa-book-open"></i>
+              <% end %>
+              <%= link to: admin_path(@conn, :ticket_delete, ticket), method: "delete", class: "btn btn-outline-danger btn-xs",
+                data: [confirm: "Permanently Delete Ticket?"] do %>
+                <span class="fas fa-trash"></span>
+              <% end %>
+            </td>
+          </tr>
+
+
+
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer" style="padding: 0; margin: 0;">
+      <%= pagination_links @tickets, previous: ~E(<i class='fas fa-step-backward'></i>), next: ~E(<i class='fas fa-step-forward'></i>) %>
+  </div>
+</div>

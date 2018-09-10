@@ -1,9 +1,13 @@
 defmodule ItsWeb.AdminController do
   use ItsWeb, :controller
+  require Ecto.Query
 
+  alias Ecto.Query
   alias Its.Accounts
   alias Its.Devices
   alias Its.Devices.Computer
+  alias Its.Issue
+  alias Its.Issue.Ticket
 
   plug :check_admin_auth when action in [:index_all, :index_clients, :index_tech, :create, :delete, :update]
 
@@ -111,5 +115,37 @@ defmodule ItsWeb.AdminController do
         conn
         |> redirect(to: admin_path(conn, :index_all))
     end
+  end
+
+  def tickets(conn, params) do
+    tickets =
+      Ticket
+      |> Query.where([t], t.status !=4)
+      |> Its.Repo.paginate(params)
+
+    render conn, "tickets.html", tickets: tickets
+  end
+
+  def ticket_delete(conn, %{"id" => id}) do
+    ticket = Issue.get_ticket! id
+    case Issue.delete_ticket ticket do
+      {:ok, _ticket} ->
+        redirect(conn, to: admin_path(conn, :tickets))
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Error Deleting Ticket")
+        |> redirect(to: admin_path(conn, :tickets))
+    end
+  end
+
+  def show_ticket(conn, %{"ticketid" => ticket_id}) do
+    ticket =
+      ticket_id
+      |> Issue.get_ticket!
+      |> Its.Repo.preload([:client, :tech, :htech, :device, tasks: [:user]])
+
+    conn
+    |> render("show_ticket.html", ticket: ticket)
   end
 end

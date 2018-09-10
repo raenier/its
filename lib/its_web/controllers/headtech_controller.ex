@@ -24,7 +24,6 @@ defmodule ItsWeb.HeadtechController  do
       |> Issue.get_ticket!
       |> Its.Repo.preload([:client, :tech, :htech, :device, tasks: [:user]])
 
-    IO.inspect ticket.tasks
     changeset = Issue.change_ticket(ticket)
     changeset_task = Task.changeset(%Task{}, %{})
 
@@ -52,22 +51,33 @@ defmodule ItsWeb.HeadtechController  do
     end
   end
 
-  def create_task(conn, %{"id" => id, "task" => attrs}) do
+  def create_task(conn, %{"id" => ticket_id, "task" => attrs}) do
     user_id = get_session(conn, :current_user_id)
     attrs =
       attrs
-      |> Map.put("ticket_id", id)
+      |> Map.put("ticket_id", ticket_id)
       |> Map.put("user_id", user_id)
-
-    IO.inspect attrs
 
     case Issue.create_task(attrs) do
       {:ok, task} ->
-        redirect(conn, to: headtech_path(conn, :show, id))
+        redirect(conn, to: headtech_path(conn, :show, ticket_id))
 
       {:error, changeset} ->
-        redirect(conn, to: headtech_path(conn, :show, id))
+        redirect(conn, to: headtech_path(conn, :show, ticket_id))
 
+    end
+  end
+
+  def update_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id, "task" => attrs}) do
+    task = Issue.get_task! task_id
+    case Issue.update_task(task, attrs) do
+      {:ok, task} ->
+        redirect(conn, to: headtech_path(conn, :show, ticket_id))
+
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Error Updating Task")
+        |> redirect(to: headtech_path(conn, :show, ticket_id))
     end
   end
 

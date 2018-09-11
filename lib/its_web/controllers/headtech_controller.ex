@@ -22,7 +22,7 @@ defmodule ItsWeb.HeadtechController  do
     ticket =
       id
       |> Issue.get_ticket!
-      |> Its.Repo.preload([:client, :tech, :htech, :device, tasks: [:user]])
+      |> Its.Repo.preload([:client, :tech, :htech, :computer, tasks: [:user]])
     user_id = get_session(conn, :current_user_id)
 
     changeset = Issue.change_ticket(ticket)

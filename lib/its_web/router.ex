@@ -33,11 +33,18 @@ defmodule ItsWeb.Router do
     post "/", AdminController, :create
     delete "/:id/:tab", AdminController, :delete
     put "/:id", AdminController, :update
-    get "/devices", AdminController, :devices
-    post "/devices", AdminController, :create_device
     get "/tickets", AdminController, :tickets
     delete "/tickets/:id/delete", AdminController, :ticket_delete
     get "/ticket/:ticketid", AdminController, :show_ticket
+  end
+
+  scope "/admin/devices", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", AdminController, :devices
+    post "/", AdminController, :create_device
+    put "/:id", AdminController, :update_device
+    delete "/delete/:id", AdminController, :delete_device
   end
 
   scope "/client", ItsWeb do

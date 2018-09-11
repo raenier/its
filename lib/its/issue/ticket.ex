@@ -10,7 +10,7 @@ defmodule Its.Issue.Ticket do
     belongs_to :client, User
     belongs_to :tech, User
     belongs_to :htech, User
-    belongs_to :device, Computer
+    belongs_to :computer, Computer
     has_many :tasks, Task
 
     field :category, :string
@@ -26,7 +26,7 @@ defmodule Its.Issue.Ticket do
   @doc false
   def changeset(ticket, attrs) do
     ticket
-    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id, :tech_id, :htech_id, :device_id, :progress])
+    |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id, :tech_id, :htech_id, :computer_id, :progress])
     |> validate_required([:title, :priority, :category, :status, :description])
   end
 end

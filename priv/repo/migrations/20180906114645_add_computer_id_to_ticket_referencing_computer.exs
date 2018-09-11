@@ -3,9 +3,9 @@ defmodule Its.Repo.Migrations.AddComputerIdToTicketReferencingComputer do
 
   def change do
     alter table(:tickets) do
-      add :device_id, references(:computers, on_delete: :nothing)
+      add :computer_id, references(:computers, on_delete: :nilify_all)
     end
 
-    create index(:tickets, [:device_id])
+    create index(:tickets, [:computer_id])
   end
 end

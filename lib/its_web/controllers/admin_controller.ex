@@ -73,6 +73,36 @@ defmodule ItsWeb.AdminController do
     end
   end
 
+  def update_device(conn, %{"id" => id, "computer" => attrs}) do
+    computer = Devices.get_computer! id
+    case Devices.update_computer(computer, attrs) do
+      {:ok, device} ->
+        conn
+        |> put_flash(:info, "Successful update")
+        |> redirect(to: admin_path(conn, :devices))
+
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Error on update of device please check inputs")
+        |> redirect(to: admin_path(conn, :devices))
+    end
+  end
+
+  def delete_device(conn, %{"id" => id}) do
+    device = Devices.get_computer!(id)
+    case Devices.delete_computer(device) do
+      {:ok, _device} ->
+        conn
+        |> put_flash(:info, "Deleted")
+        |> redirect(to: admin_path(conn, :devices))
+
+      {:error, _changeset} ->
+        conn
+        |> put_flash(:error, "Error on delete of device")
+        |> redirect(to: admin_path(conn, :devices))
+    end
+  end
+
   def create(conn, %{"user" => attrs}) do
     case Accounts.create_user(attrs) do
       {:ok, user} ->
@@ -143,7 +173,7 @@ defmodule ItsWeb.AdminController do
     ticket =
       ticket_id
       |> Issue.get_ticket!
-      |> Its.Repo.preload([:client, :tech, :htech, :device, tasks: [:user]])
+      |> Its.Repo.preload([:client, :tech, :htech, :computer, tasks: [:user]])
 
     conn
     |> render("show_ticket.html", ticket: ticket)

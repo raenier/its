@@ -82,6 +82,19 @@ defmodule ItsWeb.Router do
     put "/ticket/:ticketid/task/:taskid", HeadtechController, :update_task
     delete "/ticket/:ticketid/task/:taskid", HeadtechController, :delete_task
   end
+
+  scope "/tech", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", TechController, :index
+    get "/done", TechController, :done
+    get "/ticket/:id", TechController, :show
+    put "/ticket/:id", TechController, :update
+    post "/ticket/:id", TechController, :create_task
+    put "/ticket/:ticketid/task/:taskid", TechController, :update_task
+    delete "/ticket/:ticketid/task/:taskid", TechController, :delete_task
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", ItsWeb do
   #   pipe_through :api

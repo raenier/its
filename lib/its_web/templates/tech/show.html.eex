@@ -1,0 +1,240 @@
+<div class="container">
+<div class="row">
+
+  <div class="col-sm-5">
+    <div class="card">
+      <div class="card-header
+        <%= case @ticket.priority do %>
+          <% 1 -> %>
+            bg-danger
+
+          <% 2 -> %>
+            bg-warning
+
+          <% 3 -> %>
+            bg-success
+
+          <%_ -> %>
+            bg-info
+
+        <% end %>
+        text-white padding-10-5">
+        <h6 class="no-margin"><i class="fas fa-tag"></i><b>&nbsp; <%= String.upcase @ticket.title %></b></h6>
+      </div>
+      <div class="card-body">
+        <%= form_for @changeset, tech_path(@conn, :update, @ticket), fn f -> %>
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">Device:</label>
+              </div>
+              <label class="form-control input-sm"><%= unless is_nil(@ticket.computer), do: @ticket.computer.model %></label>
+              <div class="input-group-append">
+                <div class="input-group-text" data-placement="auto" data-toggle="tooltip" data-html="true"
+                  title="<b>Processor</b>: <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.processor %></em>
+                  <br/> <b>Ram:</b> <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.ram %></em>
+                  <br/> <b>OS:</b> <em><%=unless is_nil(@ticket.computer), do: @ticket.computer.os %></em>
+                  <br/> <b>Graphics:</b> <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.graphics %></em>
+                  <br/> <b>Type:</b> <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.type %></em>">
+                  <i class="fas fa-desktop"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">Priority:</label>
+              </div>
+              <label class="form-control">
+                <%= case @ticket.priority do %>
+                  <% 3 -> %>
+                    Normal
+
+                  <% 2 -> %>
+                    High
+
+                  <% 1 -> %>
+                    Immediate
+
+                  <% _ -> %>
+                    Unknown/No Input
+                <% end %>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">Category:</label>
+              </div>
+              <label class="form-control"><%= String.capitalize @ticket.category %></label>
+            </div>
+          </div>
+
+          <div class="form-group">
+          <div class="card">
+            <div class="card-body padding-10">
+              <%= @ticket.description %>
+            </div>
+          </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">
+                  <i class="fas fa-user"></i>&nbsp; Client:
+                </label>
+              </div>
+              <label class="form-control">
+                <%= unless is_nil(@ticket.client), do: String.capitalize(@ticket.client.first_name) <> " " <> String.capitalize(@ticket.client.last_name) %>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <label class="control-label input-group-text">
+                  <i class="fas fa-user-tie"></i>&nbsp; Technician:
+                </label>
+              </div>
+              <label class="form-control">
+                <%= unless is_nil(@ticket.tech), do: String.capitalize(@ticket.tech.first_name) <> " " <> String.capitalize(@ticket.tech.last_name) %>
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="card">
+              <div class="card-body">
+                Progress:
+                <div class="input-group">
+                  <%= range_input f, :progress, class: "form-control custom-range", onchange: "update_text_val(this)" %>
+                  <div class="input-group-append">
+                    <label class="control-label input-group-text" id="progress-text">
+                      <%= @ticket.progress %>%
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group text-right">
+            <%= submit class: "btn btn-sm btn-block btn-info", id: "submit-ticket" do %>
+              <%= case @ticket.status do %>
+                <% 1 -> %>
+                  Update
+
+                <% 2 -> %>
+                  Update
+
+                <% 3 -> %>
+                  DONE <i class="fas fa-check-double"></i>
+
+                <%_ ->%>
+                  Unknown Status
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-7">
+    <div class="card">
+      <div class="card-header text-right">
+        <button class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addTaskModal">
+          ADD TASK
+        </button>
+      </div>
+      <div class="card-body scroll">
+        <%= for task <- @ticket.tasks do %>
+          <div class="row">
+          <div class="col-sm-10">
+            <p class="mb-0"><small><u><%= task.description %></u></small></p>
+            <footer class="blockquote-footer"><b>by:</b> <cite title="Source Title"><%= unless is_nil(task.user), do: task.user.first_name <> " " <> task.user.last_name %></cite></footer>
+          </div>
+
+          <div class="col-sm-2">
+            <%= if @current_user_id == task.user_id do %>
+              <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editTaskModal<%= task.id %>"><i class="fas fa-pen"></i></button>
+              <%= link to: tech_path(@conn, :delete_task, @ticket, task), method: "delete", class: "btn btn-danger btn-xs",
+                data: [confirm: "Delete Task?"] do %>
+                <span class="fas fa-trash"></span>
+              <% end %>
+            <% end %>
+          </div>
+          </div>
+          <hr/>
+
+          <!--EDIT MODAL-->
+          <div id="editTaskModal<%= task.id %>" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title">
+                      <i class="fas fa-tasks"></i>&nbsp; Update Task
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <%= form_for Its.Issue.change_task(task), tech_path(@conn, :update_task, @ticket, task), fn f -> %>
+                  <div class="modal-body">
+                      <div class="form-group">
+                          <label class="control-label">Description:</label>
+                          <%= textarea f, :description, required: "required", class: "form-control" %>
+                      </div>
+                  </div>
+                  <div class="modal-footer">
+                        <%= submit class: "btn btn-sm btn-block btn-dark", id: "submit-ticket" do %>
+                          <i class="fas fa-wrench"></i> Update
+                        <% end %>
+                  </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<!--ADDMODAL-->
+<div id="addTaskModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">
+          <i class="fas fa-tasks"></i>&nbsp; Add Task
+        </h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <%= form_for @changeset_task, tech_path(@conn, :create_task, @ticket), fn f -> %>
+      <div class="modal-body">
+          <div class="form-group">
+              <label class="control-label">Description:</label>
+              <%= textarea f, :description, required: "required", class: "form-control" %>
+          </div>
+      </div>
+      <div class="modal-footer">
+            <%= submit class: "btn btn-sm btn-block btn-success", id: "submit-ticket" do %>
+              <i class="fas fa-plus"></i>
+            <% end %>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+</div>
+</div>

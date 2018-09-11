@@ -145,7 +145,7 @@
                   </button>
                 </div>
                 <div class="modal-body">
-                  <%= render "form_edit.html", changeset: Its.Issue.change_ticket(ticket), action: client_path(@conn, :update, ticket) %>
+                  <%= render "form_edit.html", changeset: Its.Issue.change_ticket(ticket), action: client_path(@conn, :update, ticket), deviceopt: @deviceopt %>
                 </div>
                 <div class="modal-footer">
                 </div>

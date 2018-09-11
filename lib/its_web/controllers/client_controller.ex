@@ -56,9 +56,11 @@ defmodule ItsWeb.ClientController do
 
     active_tab = 2
     changeset = Issue.change_ticket(%Issue.Ticket{})
+    deviceopt = Devices.map_model_id()
     render conn, "index.html",
       tickets: tickets,
       changeset: changeset,
+      deviceopt: deviceopt,
       active_tab: active_tab
   end
 
@@ -71,9 +73,11 @@ defmodule ItsWeb.ClientController do
 
     active_tab = 3
     changeset = Issue.change_ticket(%Issue.Ticket{})
+    deviceopt = Devices.map_model_id()
     render conn, "index.html",
       tickets: tickets,
       changeset: changeset,
+      deviceopt: deviceopt,
       active_tab: active_tab
   end
 
@@ -86,9 +90,11 @@ defmodule ItsWeb.ClientController do
 
     active_tab = 5
     changeset = Issue.change_ticket(%Issue.Ticket{})
+    deviceopt = Devices.map_model_id()
     render conn, "index.html",
       tickets: tickets,
       changeset: changeset,
+      deviceopt: deviceopt,
       active_tab: active_tab
   end
 
@@ -101,9 +107,11 @@ defmodule ItsWeb.ClientController do
 
     active_tab = 4
     changeset = Issue.change_ticket(%Issue.Ticket{})
+    deviceopt = Devices.map_model_id()
     render conn, "index.html",
       tickets: tickets,
       changeset: changeset,
+      deviceopt: deviceopt,
       active_tab: active_tab
   end
 

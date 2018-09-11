@@ -14,6 +14,15 @@
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-prepend">
+        <label class="control-label input-group-text">Device:</label>
+      </div>
+      <%= select f, :device_id, @deviceopt, class: "form-control input-sm" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
         <label class="control-label input-group-text">Priority:</label>
       </div>
       <%= select f, :priority, [Immediate: 1, High: 2, Normal: 3], class: "form-control input-sm" %>

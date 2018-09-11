@@ -9,7 +9,7 @@ defmodule ItsWeb.AdminController do
   alias Its.Issue
   alias Its.Issue.Ticket
 
-  plug :check_admin_auth when action in [:index_all, :index_clients, :index_tech, :create, :delete, :update]
+  plug :check_admin_auth
 
   defp check_admin_auth(conn, _args) do
     if user_id = get_session(conn, :current_user_id) do
@@ -177,5 +177,27 @@ defmodule ItsWeb.AdminController do
 
     conn
     |> render("show_ticket.html", ticket: ticket)
+  end
+
+  def profile_setting(conn, _params) do
+    user =
+      conn
+      |> get_session(:current_user_id)
+      |> Accounts.get_user!()
+
+    changeset = Accounts.change_user(user)
+    conn
+    |> render("profile.html", user: user, changeset: changeset)
+  end
+
+  def update_profile(conn, %{"id" => id, "user" => attrs}) do
+    user = Accounts.get_user! id
+    case Accounts.update_user(user, attrs) do
+      {:ok, user} ->
+        redirect(conn, to: admin_path(conn, :profile_setting))
+
+      {:ok, changeset} ->
+        redirect(conn, to: admin_path(conn, :profile_setting))
+    end
   end
 end

@@ -38,6 +38,13 @@ defmodule ItsWeb.Router do
     get "/ticket/:ticketid", AdminController, :show_ticket
   end
 
+  scope "/admin/profile", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", AdminController, :profile_setting
+    put "/:id", AdminController, :update_profile
+  end
+
   scope "/admin/devices", ItsWeb do
     pipe_through :browser # Use the default browser stack
 

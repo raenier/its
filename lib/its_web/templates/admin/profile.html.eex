@@ -1,0 +1,51 @@
+<br>
+<div class="container">
+  <div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-8">
+  <div class="card">
+    <div class="card-header bg-info text-white">
+      <i class="fas fa-users-cog"></i>
+    </div>
+    <div class="card-body">
+      <%= form_for @changeset, admin_path(@conn, :update_profile, @user), fn f -> %>
+        <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-prepend"><label class="control-label input-group-text">Username:</label></div>
+              <%= text_input f, :username, class: "form-control input-sm", required: "required" %>
+            </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <label class="control-label input-group-text">Name:</label>
+            </div>
+            <%= text_input f, :first_name, class: "form-control input-sm", placeholder: "First Name", required: "required" %>
+            <%= text_input f, :middle_name, class: "form-control input-sm", placeholder: "Middle Name" %>
+            <%= text_input f, :last_name, class: "form-control input-sm", placeholder: "Last Name", required: "required" %>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="input-group">
+            <%= text_input f, :password, type: "password", onkeyup: "match()", class: "form-control input-sm", placeholder: "Password", required: "required" %>
+          </div>
+          <div class="input-group">
+            <%= text_input f, :password_confirm, value: @user.password, type: "password", onkeyup: "match()", class: "form-control input-sm", placeholder: "Confirm Password", required: "required" %>
+          </div>
+          <p id="errmessage"></p>
+        </div>
+
+        <br>
+        <div class="form-group text-right">
+          <%= submit [id: "submit_user", class: "btn btn-secondary"] do %>
+            <i class="fas fa-share-square"></i> &nbsp;Update
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+</div>
+</div>

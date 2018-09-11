@@ -111,10 +111,14 @@
                   </button>
 
                 <% 2 -> %>
-                  <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
+                  <%= link to: client_path(@conn, :show, ticket), class: "btn btn-xs btn-outline-info" do %>
+                    <i class="fas fa-book-open"></i>
+                  <% end %>
 
                 <% 3 -> %>
-                  <a class="btn btn-xs btn-outline-info" href="" ><i class="fas fa-book-open"></i></a>
+                  <%= link to: client_path(@conn, :show, ticket), class: "btn btn-xs btn-outline-info" do %>
+                    <i class="fas fa-book-open"></i>
+                  <% end %>
 
                 <% 4 -> %>
                   <button class="btn btn-outline-success btn-xs" data-toggle="modal" data-target="#recycleTicketModal<%= ticket.id %>">

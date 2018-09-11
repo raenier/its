@@ -162,4 +162,13 @@ defmodule ItsWeb.ClientController do
 
     redirect(conn, to: client_path(conn, :index))
   end
+
+  def show(conn, %{"id" => id}) do
+    ticket =
+      id
+      |> Issue.get_ticket!
+      |> Its.Repo.preload([:client, :tech, :htech, :computer, tasks: [:user]])
+
+    render conn, "show.html", ticket: ticket
+  end
 end

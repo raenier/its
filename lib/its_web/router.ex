@@ -66,6 +66,7 @@ defmodule ItsWeb.Router do
     put "/:id", ClientController, :update
     put "ticket/:id", ClientController, :update_ticket_status
     delete "/:id", ClientController, :delete
+    get "/show/:id", ClientController, :show
   end
 
   scope "/headtech", ItsWeb do

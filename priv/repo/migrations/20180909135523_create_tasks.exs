@@ -5,7 +5,7 @@ defmodule Its.Repo.Migrations.CreateTasks do
     create table(:tasks) do
       add :description, :string
       add :ticket_id, references(:tickets, on_delete: :delete_all)
-      add :user_id, references(:users, on_delete: :nothing)
+      add :user_id, references(:users, on_delete: :nilify_all)
 
       timestamps()
     end

@@ -2,12 +2,14 @@ defmodule Its.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
   alias Its.Issue.Ticket
+  alias Its.Devices.Computer
 
 
   schema "users" do
     has_many :assigned_tickets, Ticket, on_delete: :nilify_all, foreign_key: :htech_id
     has_many :created_tickets, Ticket, on_delete: :nilify_all, foreign_key: :client_id
     has_many :owned_tickets, Ticket, on_delete: :nilify_all, foreign_key: :tech_id
+    has_many :computers, Computer, on_delete: :nilify_all
 
     field :first_name, :string
     field :last_name, :string

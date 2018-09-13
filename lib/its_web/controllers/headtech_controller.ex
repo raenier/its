@@ -164,7 +164,7 @@ defmodule ItsWeb.HeadtechController  do
     user_id = get_session(conn, :current_user_id)
     tickets =
       Ticket
-      |> Query.where([t], t.htech_id == ^user_id and t.tech_id != ^user_id)
+      |> Query.where([t], t.htech_id == ^user_id and (t.tech_id != ^user_id or is_nil(t.tech_id)))
       |> Its.Repo.paginate(params)
 
     active_tab = 3

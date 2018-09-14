@@ -71,6 +71,9 @@
               <li class="nav-item">
                 <%= link [to: headtech_path(@conn, :index), class: "nav-link"] do %>
                   <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
+                  &nbsp;<span class="badge badge-pill badge-warning <%= if Its.Issue.count_pending_tickets() == 0, do: "hide" %>" style="float:right;margin-bottom:-10px;">
+                    <%= Its.Issue.count_pending_tickets() %>
+                  </span>
                 <% end %>
               </li>
 
@@ -136,7 +139,7 @@
                   <% end %>
                   <i class="fas fa-sign-out-alt"></i>&nbsp;Sign Out
                 <% end %>
-              <%= else %>
+              <% else %>
                 <%= link to: session_path(@conn, :new), class: "nav-link link-white active" do %>
                   <i class="fas fa-sign-in-alt"></i>
                   &nbsp;

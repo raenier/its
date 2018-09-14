@@ -116,3 +116,7 @@ table {
 body {
   background-color: #fdf6ee !important;
 }
+
+.hide {
+  visibility: hidden;
+}

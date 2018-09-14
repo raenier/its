@@ -6,6 +6,7 @@ defmodule Its.Issue do
   import Ecto.Query, warn: false
   alias Its.Repo
 
+  alias Ecto.Query
   alias Its.Issue.Ticket
 
   @doc """
@@ -22,7 +23,7 @@ defmodule Its.Issue do
   end
 
   def list_tickets_for_user(user_id) do
-    Ecto.Query.from(t in Its.Issue.Ticket, where: t.client_id == ^user_id)
+    Query.from(t in Its.Issue.Ticket, where: t.client_id == ^user_id)
     |> Its.Repo.all()
   end
 
@@ -81,6 +82,12 @@ defmodule Its.Issue do
     ticket
     |> Ticket.changeset(attrs)
     |> Repo.update()
+  end
+
+  def count_pending_tickets() do
+    Query.from(t in Ticket, where: t.status == 1)
+    |> Repo.all()
+    |> Enum.count()
   end
 
   def assign_tech_and_update_status(%{} = ticket, attrs) do

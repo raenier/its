@@ -159,6 +159,32 @@
 
       <main role="main">
         <div class="container-fluid">
+          <div class="row fixed-bottom">
+            <div class="col-sm-10 fixed-bottom"></div>
+            <div class="col-sm-1 ml-auto fixed-bottom">
+              <div class="row ml-auto">
+
+              <div class="col-sm-4 <%= unless signed_in?(@conn), do: 'hide' %>">
+                <div class="btn-group dropleft">
+                  <button type="button" class="round btn btn-outline-warning" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="fas fa-user-tie"></i>
+                  </button>
+                  <div class="dropdown-menu">
+                    <h6 class="dropdown-header">Online Technicians</h6>
+                    <% online_techs = Its.Accounts.list_online_users(["technician", "headtech"])%>
+                    <%= for tech <- online_techs do %>
+                    <a class="dropdown-item" href="#">
+                      <i class="fas fa-user-circle text-warning"></i> &nbsp; <%= tech.first_name <> " " <> tech.last_name %>
+                    </a>
+                   <% end %>
+                  </div>
+                </div>
+              </div>
+
+              </div>
+            </div>
+          </div>
+
           <%= render @view_module, @view_template, assigns %>
         </div>
       </main>

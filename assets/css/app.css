@@ -120,3 +120,8 @@ body {
 .hide {
   visibility: hidden;
 }
+
+.round{
+	box-shadow: 2px 2px 3px #999;
+	border-radius:50% !important;
+}

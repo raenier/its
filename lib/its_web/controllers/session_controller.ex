@@ -34,6 +34,8 @@ defmodule ItsWeb.SessionController do
     else
       if auth_params["password"] == user.password do
         #if match redirect to corresponding page based on its type
+        #set ol_status to 1
+        Accounts.update_user(user, %{ol_status: 1})
         conn
         |> put_session(:current_user_id, user.id)
         |> redirect(to: page_path(conn, :index))
@@ -57,7 +59,13 @@ defmodule ItsWeb.SessionController do
     end
   end
 
-  def delete(conn, _params) do
+  def delete(conn, params) do
+    #set user ol_status to 0-offline
+    conn
+    |> get_session(:current_user_id)
+    |> Accounts.get_user!()
+    |> Accounts.update_user(%{ol_status: 0})
+
     conn
     |> delete_session(:current_user_id)
     |> redirect(to: page_path(conn, :index))

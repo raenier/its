@@ -26,6 +26,11 @@ defmodule Its.Accounts do
     Repo.all(query)
   end
 
+  def list_online_users(type) do
+    from(u in User, where: u.ol_status == 1 and u.type in ^type)
+    |> Repo.all
+  end
+
   def map_name_id(usertypes) do
     list_users_only(usertypes)
     |> Enum.map(fn user -> {:"#{user.first_name <> " " <> user.last_name}", user.id} end)

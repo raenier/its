@@ -18,6 +18,7 @@ defmodule Its.Accounts.User do
     field :type, :string
     field :username, :string
     field :password_confirm, :string, virtual: true
+    field :ol_status, :integer, default: 0
 
     timestamps()
   end
@@ -25,7 +26,7 @@ defmodule Its.Accounts.User do
   @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:username, :first_name, :middle_name, :last_name, :password, :type])
+    |> cast(attrs, [:username, :first_name, :middle_name, :last_name, :password, :type, :ol_status])
     |> validate_required([:username, :first_name, :last_name, :password, :type])
     |> unique_constraint(:username)
   end

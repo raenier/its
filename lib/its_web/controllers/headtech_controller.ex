@@ -35,9 +35,11 @@ defmodule ItsWeb.HeadtechController  do
       Ticket
       |> Query.where([t], t.status !=4 and t.status == 1)
       |> Its.Repo.paginate(params)
+
+    pending_count = Enum.count tickets
     active_tab = 1
     name_and_id = Accounts.map_name_id(["headtech", "technician"])
-    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab)
+    render(conn, "index.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab, notif: pending_count)
   end
 
   def show(conn, %{"id" => id}) do

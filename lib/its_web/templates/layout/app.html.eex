@@ -96,13 +96,13 @@
                                 admin_path(@conn, :profile_setting)
 
                               "client" ->
-                                "#"
+                                client_path(@conn, :profile_setting)
 
                               "headtech" ->
-                                "#"
+                                headtech_path(@conn, :profile_setting)
 
                               "technician" ->
-                                "#"
+                                tech_path(@conn, :profile_setting)
 
                               _ ->
                                 "#"

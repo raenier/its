@@ -6,6 +6,7 @@ defmodule ItsWeb.TechController do
   alias Its.Issue
   alias Its.Issue.Ticket
   alias Its.Issue.Task
+  alias Its.Accounts
 
   def index(conn, params) do
     user_id = get_session(conn, :current_user_id)
@@ -115,6 +116,28 @@ defmodule ItsWeb.TechController do
       end
     else
       redirect(conn, to: tech_path(conn, :show, ticket_id))
+    end
+  end
+
+  def profile_setting(conn, _params) do
+    user =
+      conn
+      |> get_session(:current_user_id)
+      |> Accounts.get_user!()
+
+    changeset = Accounts.change_user(user)
+    conn
+    |> render("profile.html", user: user, changeset: changeset)
+  end
+
+  def update_profile(conn, %{"id" => id, "user" => attrs}) do
+    user = Accounts.get_user! id
+    case Accounts.update_user(user, attrs) do
+      {:ok, user} ->
+        redirect(conn, to: tech_path(conn, :profile_setting))
+
+      {:ok, changeset} ->
+        redirect(conn, to: tech_path(conn, :profile_setting))
     end
   end
 end

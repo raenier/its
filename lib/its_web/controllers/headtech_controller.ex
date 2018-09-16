@@ -173,4 +173,26 @@ defmodule ItsWeb.HeadtechController  do
     name_and_id = Accounts.map_name_id(["headtech", "technician"])
     render(conn, "index.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab)
   end
+
+  def profile_setting(conn, _params) do
+    user =
+      conn
+      |> get_session(:current_user_id)
+      |> Accounts.get_user!()
+
+    changeset = Accounts.change_user(user)
+    conn
+    |> render("profile.html", user: user, changeset: changeset)
+  end
+
+  def update_profile(conn, %{"id" => id, "user" => attrs}) do
+    user = Accounts.get_user! id
+    case Accounts.update_user(user, attrs) do
+      {:ok, user} ->
+        redirect(conn, to: headtech_path(conn, :profile_setting))
+
+      {:ok, changeset} ->
+        redirect(conn, to: headtech_path(conn, :profile_setting))
+    end
+  end
 end

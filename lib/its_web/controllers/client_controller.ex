@@ -171,4 +171,26 @@ defmodule ItsWeb.ClientController do
 
     render conn, "show.html", ticket: ticket
   end
+
+  def profile_setting(conn, _params) do
+    user =
+      conn
+      |> get_session(:current_user_id)
+      |> Accounts.get_user!()
+
+    changeset = Accounts.change_user(user)
+    conn
+    |> render("profile.html", user: user, changeset: changeset)
+  end
+
+  def update_profile(conn, %{"id" => id, "user" => attrs}) do
+    user = Accounts.get_user! id
+    case Accounts.update_user(user, attrs) do
+      {:ok, user} ->
+        redirect(conn, to: client_path(conn, :profile_setting))
+
+      {:ok, changeset} ->
+        redirect(conn, to: client_path(conn, :profile_setting))
+    end
+  end
 end

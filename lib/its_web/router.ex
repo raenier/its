@@ -69,6 +69,13 @@ defmodule ItsWeb.Router do
     get "/show/:id", ClientController, :show
   end
 
+  scope "/client/profile", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", ClientController, :profile_setting
+    put "/:id", ClientController, :update_profile
+  end
+
   scope "/headtech", ItsWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -83,6 +90,13 @@ defmodule ItsWeb.Router do
     delete "/ticket/:ticketid/task/:taskid", HeadtechController, :delete_task
   end
 
+  scope "/headtech/profile", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", HeadtechController, :profile_setting
+    put "/:id", HeadtechController, :update_profile
+  end
+
   scope "/tech", ItsWeb do
     pipe_through :browser # Use the default browser stack
 
@@ -93,6 +107,13 @@ defmodule ItsWeb.Router do
     post "/ticket/:id", TechController, :create_task
     put "/ticket/:ticketid/task/:taskid", TechController, :update_task
     delete "/ticket/:ticketid/task/:taskid", TechController, :delete_task
+  end
+
+  scope "/tech/profile", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/", TechController, :profile_setting
+    put "/:id", TechController, :update_profile
   end
 
   # Other scopes may use custom stacks.

@@ -45,7 +45,7 @@
             <div class="input-group">
               <div class="input-group-prepend">
                 <label class="control-label input-group-text">
-                  <i class="fas fa-user"></i>&nbsp; Client:
+                  <i class="fas fa-user"></i>&nbsp; Call Center:
                 </label>
               </div>
               <label class="form-control">

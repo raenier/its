@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card">
+      <div class="card-body">
+        <%= if signed_in? @conn do %>
+        <div class="jumbotron">
+          <h1 class="display-4">Issue Ticketing System for EAST WEST BPO!</h1>
+          <p class="lead">
+            An issue tracking system (also ITS, trouble ticket system, support ticket, request management or incident ticket system) is a computer software package that manages and maintains lists of issues, as needed by an organization.
+          </p>
+          <hr class="my-4">
+          <p>
+            Issue tracking systems are commonly used in an organization's customer support call center to create, update, and resolve reported customer issues, or even issues reported by that organization's other employees.
+          </p>
+        </div>
+        <% else %>
+        <div class="jumbotron">
+          <p class="lead">
+            PLEASE LOG-IN FIRST
+          </p>
+          <hr class="my-4">
+          <p>
+            <%= link [to: session_path(@conn, :new), class: "btn btn-block btn-outline-success"] do %>
+              SIGN-IN
+            <% end %>
+          </p>
+        </div>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

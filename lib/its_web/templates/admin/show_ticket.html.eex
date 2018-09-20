@@ -3,67 +3,10 @@
 
   <div class="col-sm-5">
     <div class="card">
-      <div class="card-header
-        <%= case @ticket.priority do %>
-          <% 1 -> %>
-            bg-danger
-
-          <% 2 -> %>
-            bg-warning
-
-          <% 3 -> %>
-            bg-success
-
-          <%_ -> %>
-            bg-info
-
-        <% end %>
-        text-white padding-10-5">
+      <div class="card-header bg-success text-white padding-10-5">
         <h6 class="no-margin"><i class="fas fa-tag"></i><b>&nbsp; <%= String.upcase @ticket.title %></b></h6>
       </div>
       <div class="card-body">
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <label class="control-label input-group-text">Device:</label>
-              </div>
-              <label class="form-control input-sm"><%= unless is_nil(@ticket.computer), do: @ticket.computer.model %></label>
-              <div class="input-group-append">
-                <div class="input-group-text" data-placement="auto" data-toggle="tooltip" data-html="true"
-                  title="<b>Processor</b>: <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.processor %></em>
-                  <br/> <b>Ram:</b> <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.ram %></em>
-                  <br/> <b>OS:</b> <em><%=unless is_nil(@ticket.computer), do: @ticket.computer.os %></em>
-                  <br/> <b>Graphics:</b> <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.graphics %></em>
-                  <br/> <b>Type:</b> <em><%= unless is_nil(@ticket.computer), do: @ticket.computer.type %></em>">
-                  <i class="fas fa-desktop"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <label class="control-label input-group-text">Priority:</label>
-              </div>
-              <label class="form-control">
-                <%= case @ticket.priority do %>
-                  <% 3 -> %>
-                    Normal
-
-                  <% 2 -> %>
-                    High
-
-                  <% 1 -> %>
-                    Immediate
-
-                  <% _ -> %>
-                    Unknown/No Input
-                <% end %>
-              </label>
-            </div>
-          </div>
-
           <div class="form-group">
             <div class="input-group">
               <div class="input-group-prepend">

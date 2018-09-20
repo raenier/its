@@ -2,8 +2,23 @@
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
       <li class="nav-item">
-        <%= link to: client_path(@conn, :index), class: "nav-link active" do %>
+        <%= link to: admin_path(@conn, :tickets), class: "nav-link " <> if(@active_tab == 1, do: "active", else: "") do %>
           <i class="fas fa-ticket-alt"></i>&nbsp; All Tickets
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link to: admin_path(@conn, :tickets_pending), class: "nav-link " <> if(@active_tab == 2, do: "active", else: "") do %>
+          <i class="fas fa-ticket-alt"></i>&nbsp; Pending
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link to: admin_path(@conn, :tasks), class: "nav-link " <> if(@active_tab == 3, do: "active", else: "") do %>
+          <i class="fas fa-shipping-fast"></i>&nbsp; Tasks
+        <% end %>
+      </li>
+      <li class="nav-item">
+        <%= link to: admin_path(@conn, :to_others), class: "nav-link " <> if(@active_tab == 4, do: "active", else: "") do %>
+          <i class="fab fa-superpowers"></i>&nbsp; Assigned to others
         <% end %>
       </li>
     </ul>
@@ -16,7 +31,6 @@
             <i class="fas fa-code-branch"></i>
           </th>
           <th class="wdth-15">Title</th>
-          <th class="wdth-5">Priority</th>
           <th class="wdth-10">Category</th>
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
@@ -29,22 +43,6 @@
           <tr>
             <td><%= ticket.id %></td>
             <td><%= ticket.title %></td>
-            <td>
-              <%= case ticket.priority do %>
-                <% 1 -> %>
-                  <span class="dot-red"></span>
-
-                <% 2 -> %>
-                  <span class="dot-orange"></span>
-
-                <% 3 -> %>
-                  <span class="dot-green"></span>
-
-                <% _ -> %>
-                  Undefined
-
-              <% end %>
-            </td>
             <td><%= ticket.category %></td>
             <td><%= ticket.description %></td>
             <td>
@@ -70,8 +68,26 @@
               <%= unless is_nil(ticket.tech), do: ticket.tech.first_name, else: "Not Yet Assigned" %>
             </td>
             <td>
-              <%= link to: admin_path(@conn, :show_ticket, ticket), class: "btn btn-outline-info btn-xs" do %>
-                <i class="fas fa-book-open"></i>
+              <%= case ticket.status do %>
+                <% 1 -> %>
+                  <button class="btn btn-outline-warning btn-xs" data-toggle="modal" data-target="#editTicketModal<%= ticket.id %>">
+                      <span class="fas fa-user-cog"></span>
+                  </button>
+
+                <% 2 -> %>
+                  <%= link to: admin_path(@conn, :show, ticket), class: "btn btn-outline-info btn-xs" do %>
+                    <i class="fas fa-book-open"></i>
+                  <% end %>
+
+                <% 3 -> %>
+                  <%= link to: admin_path(@conn, :show, ticket), class: "btn btn-outline-info btn-xs" do %>
+                    <span class="fas fa-book-open"></span>
+                  <% end %>
+
+
+                <% _ -> %>
+                  &nbsp;
+
               <% end %>
               <%= link to: admin_path(@conn, :ticket_delete, ticket), method: "delete", class: "btn btn-outline-danger btn-xs",
                 data: [confirm: "Permanently Delete Ticket?"] do %>
@@ -80,6 +96,34 @@
             </td>
           </tr>
 
+          <!--EDIT MODAL-->
+          <div id="editTicketModal<%= ticket.id %>" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">
+                    <i class="fas fa-user-cog"></i>&nbsp; Assign Technician
+                  </h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <%= form_for Its.Issue.change_ticket(ticket), admin_path(@conn, :assign, ticket), fn f -> %>
+                    <div class="form-group">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <label class="control-label input-group-text"><i class="fab fa-superpowers"></i></label>
+                        </div>
+                        <%= select f, :tech_id, @name_and_id, class: "form-control" %>
+                        <%= submit "ASSIGN", class: "btn btn-outline-success" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          </div>
 
 
         <% end %>

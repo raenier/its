@@ -45,13 +45,19 @@
             <li class="nav-item">
               <%= link [to: admin_path(@conn, :tickets), class: "nav-link"] do %>
                 <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
+                  &nbsp;<span class="badge badge-pill badge-warning <%= if Its.Issue.count_pending_tickets() == 0, do: "hide" %>" style="float:right;margin-bottom:-10px;">
+                    <%= Its.Issue.count_pending_tickets() %>
+                  </span>
               <% end %>
             </li>
+
+            <!--Deleted nav
             <li class="nav-item">
               <%= link [to: admin_path(@conn, :devices), class: "nav-link"] do %>
                 <i class="fas fa-laptop"></i>&nbsp;Devices
               <% end %>
             </li>
+            -->
 
             <% "client" -> %>
               <li class="nav-item">
@@ -171,7 +177,7 @@
                   </button>
                   <div class="dropdown-menu">
                     <h6 class="dropdown-header">Online Technicians</h6>
-                    <% online_techs = Its.Accounts.list_online_users(["technician", "headtech"])%>
+                    <% online_techs = Its.Accounts.list_online_users(["technician", "headtech", "admin"])%>
                     <%= for tech <- online_techs do %>
                     <a class="dropdown-item" href="#">
                       <i class="fas fa-user-circle text-warning"></i> &nbsp; <%= tech.first_name <> " " <> tech.last_name %>

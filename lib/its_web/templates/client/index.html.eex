@@ -47,7 +47,6 @@
             <i class="fas fa-code-branch"></i>
           </th>
           <th class="wdth-15">Title</th>
-          <th class="wdth-5">Priority</th>
           <th class="wdth-10">Category</th>
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
@@ -60,22 +59,6 @@
           <tr>
             <td><%= ticket.id %></td>
             <td><%= ticket.title %></td>
-            <td>
-              <%= case ticket.priority do %>
-                <% 1 -> %>
-                  <span class="dot-red"></span>
-
-                <% 2 -> %>
-                  <span class="dot-orange"></span>
-
-                <% 3 -> %>
-                  <span class="dot-green"></span>
-
-                <% _ -> %>
-                  Undefined
-
-              <% end %>
-            </td>
             <td><%= ticket.category %></td>
             <td><%= ticket.description %></td>
             <td>

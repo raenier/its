@@ -36,6 +36,20 @@ defmodule ItsWeb.Router do
     get "/tickets", AdminController, :tickets
     delete "/tickets/:id/delete", AdminController, :ticket_delete
     get "/ticket/:ticketid", AdminController, :show_ticket
+    delete "/ticket/:ticketid/task/:taskid", AdminController, :delete_task
+  end
+
+  scope "/admin/tickets", ItsWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/pending", AdminController, :tickets_pending
+    get "/tasks", AdminController, :tasks
+    get "/assigned", AdminController, :to_others
+    get "/:id", AdminController, :show
+    put "/:id/tech", AdminController, :assign
+    post "/:id/task", AdminController, :create_task
+    put "/:ticketid/task/:taskid", AdminController, :update_task
+    put "/:id", AdminController, :update_ticket
   end
 
   scope "/admin/profile", ItsWeb do

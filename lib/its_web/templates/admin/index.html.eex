@@ -40,7 +40,7 @@
         <tr>
           <td><%= user.username %></td>
           <td><%= user.last_name %> <%= user.first_name %>, <%= unless is_nil(user.middle_name), do: String.first(user.middle_name) %></td>
-          <td><%= user.type %></td>
+          <td><%= if user.type == "client", do: "Call Center", else: "Technician" %></td>
           <td>
             <div class="input-group col-7">
               <input type=password class="form-control form-control-sm" style="height: 20px;" disabled value=<%= user.password %> id="pass<%= user.id %>">

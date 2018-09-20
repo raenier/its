@@ -8,6 +8,7 @@ defmodule ItsWeb.AdminController do
   alias Its.Devices.Computer
   alias Its.Issue
   alias Its.Issue.Ticket
+  alias Its.Issue.Task
 
   plug :check_admin_auth
 
@@ -153,7 +154,99 @@ defmodule ItsWeb.AdminController do
       |> Query.where([t], t.status !=4)
       |> Its.Repo.paginate(params)
 
-    render conn, "tickets.html", tickets: tickets
+    active_tab = 1
+    name_and_id = Accounts.map_name_id(["admin", "technician"])
+    render conn, "tickets.html", tickets: tickets, active_tab: active_tab, name_and_id: name_and_id
+  end
+
+  def assign(conn, %{"id" => id, "ticket" => attrs}) do
+    user_id = get_session(conn, :current_user_id)
+    ticket = Issue.get_ticket! id
+    case Issue.assign_tech_and_update_status(ticket, attrs) do
+      {:ok, ticket} ->
+        conn
+        |> redirect(to: admin_path(conn, :tickets))
+
+      {:error, Changeset} ->
+        conn
+        |> redirect(to: admin_path(conn, :tickets))
+    end
+  end
+
+  def create_task(conn, %{"id" => ticket_id, "task" => attrs}) do
+    user_id = get_session(conn, :current_user_id)
+    attrs =
+      attrs
+      |> Map.put("ticket_id", ticket_id)
+      |> Map.put("user_id", user_id)
+
+    case Issue.create_task(attrs) do
+      {:ok, task} ->
+        redirect(conn, to: admin_path(conn, :show, ticket_id))
+
+      {:error, changeset} ->
+        redirect(conn, to: admin_path(conn, :show, ticket_id))
+
+    end
+  end
+
+  def update_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id, "task" => attrs}) do
+    task = Issue.get_task! task_id
+    user_id = get_session(conn, :current_user_id)
+
+    if user_id == task.user_id do
+      case Issue.update_task(task, attrs) do
+        {:ok, task} ->
+          redirect(conn, to: admin_path(conn, :show, ticket_id))
+
+        {:error, changeset} ->
+          conn
+          |> put_flash(:error, "Error Updating Task")
+          |> redirect(to: admin_path(conn, :show, ticket_id))
+      end
+    else
+        conn
+        |> put_flash(:error, "Error Updating Task")
+        |> redirect(to: admin_path(conn, :show, ticket_id))
+    end
+  end
+
+  def delete_task(conn, %{"ticketid" => ticket_id, "taskid" => task_id}) do
+    task = Issue.get_task! task_id
+    user_id = get_session(conn, :current_user_id)
+
+    if user_id == task.user_id do
+      case Issue.delete_task task do
+        {:ok, task} ->
+          redirect(conn, to: admin_path(conn, :show, ticket_id))
+
+        _ ->
+          redirect(conn, to: admin_path(conn, :show, ticket_id))
+      end
+    else
+      redirect(conn, to: admin_path(conn, :show, ticket_id))
+    end
+  end
+
+  def update_ticket(conn, %{"id" => id, "ticket" => attrs}) do
+    ticket = Issue.get_ticket! id
+    attrs =
+    if attrs["progress"] == "100" do
+      Map.put attrs, "status", 3
+    else
+      Map.put attrs, "status", 2
+    end
+
+    case Issue.update_ticket(ticket, attrs) do
+      {:ok, ticket} ->
+        redirect(conn, to: admin_path(conn, :show, ticket))
+
+
+      {:error, changeset} ->
+        conn
+        |> put_flash(:error, "Error on updating ticket")
+        |> redirect(to: admin_path(conn, :show, ticket))
+    end
   end
 
   def ticket_delete(conn, %{"id" => id}) do
@@ -167,6 +260,55 @@ defmodule ItsWeb.AdminController do
         |> put_flash(:error, "Error Deleting Ticket")
         |> redirect(to: admin_path(conn, :tickets))
     end
+  end
+
+  def tickets_pending(conn, params) do
+    tickets =
+      Ticket
+      |> Query.where([t], t.status !=4 and t.status == 1)
+      |> Its.Repo.paginate(params)
+
+    pending_count = Enum.count tickets
+    active_tab = 2
+    name_and_id = Accounts.map_name_id(["admin", "technician"])
+    render(conn, "tickets.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab, notif: pending_count)
+  end
+
+  def tasks(conn, params) do
+    user_id = get_session(conn, :current_user_id)
+    tickets =
+      Ticket
+      |> Query.where([t], t.tech_id == ^user_id)
+      |> Its.Repo.paginate(params)
+
+    active_tab = 3
+    name_and_id = Accounts.map_name_id(["admin", "technician"])
+    render(conn, "tickets.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab)
+  end
+
+  def to_others(conn, params) do
+    user_id = get_session(conn, :current_user_id)
+    tickets =
+      Ticket
+      |> Query.where([t], t.tech_id != ^user_id)
+      |> Its.Repo.paginate(params)
+
+    active_tab = 4
+    name_and_id = Accounts.map_name_id(["admin", "technician"])
+    render(conn, "tickets.html", tickets: tickets, name_and_id: name_and_id, active_tab: active_tab)
+  end
+
+  def show(conn, %{"id" => id}) do
+    ticket =
+      id
+      |> Issue.get_ticket!
+      |> Its.Repo.preload([:client, :tech, :htech, :computer, tasks: [:user]])
+    user_id = get_session(conn, :current_user_id)
+
+    changeset = Issue.change_ticket(ticket)
+    changeset_task = Task.changeset(%Task{}, %{})
+
+    render conn, "show.html", ticket: ticket, current_user_id: user_id, changeset_task: changeset_task, changeset: changeset
   end
 
   def show_ticket(conn, %{"ticketid" => ticket_id}) do

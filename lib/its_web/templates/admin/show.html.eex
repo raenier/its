@@ -22,7 +22,7 @@
         <h6 class="no-margin"><i class="fas fa-tag"></i><b>&nbsp; <%= String.upcase @ticket.title %></b></h6>
       </div>
       <div class="card-body">
-        <%= form_for @changeset, tech_path(@conn, :update, @ticket), fn f -> %>
+        <%= form_for @changeset, admin_path(@conn, :update_ticket, @ticket), fn f -> %>
 
           <div class="form-group">
             <div class="input-group">
@@ -123,7 +123,7 @@
           <div class="col-sm-2">
             <%= if @current_user_id == task.user_id do %>
               <button class="btn btn-info btn-xs" data-toggle="modal" data-target="#editTaskModal<%= task.id %>"><i class="fas fa-pen"></i></button>
-              <%= link to: tech_path(@conn, :delete_task, @ticket, task), method: "delete", class: "btn btn-danger btn-xs",
+              <%= link to: admin_path(@conn, :delete_task, @ticket, task), method: "delete", class: "btn btn-danger btn-xs",
                 data: [confirm: "Delete Task?"] do %>
                 <span class="fas fa-trash"></span>
               <% end %>
@@ -144,7 +144,7 @@
                       <span aria-hidden="true">&times;</span>
                     </button>
                   </div>
-                  <%= form_for Its.Issue.change_task(task), tech_path(@conn, :update_task, @ticket, task), fn f -> %>
+                  <%= form_for Its.Issue.change_task(task), admin_path(@conn, :update_task, @ticket, task), fn f -> %>
                   <div class="modal-body">
                       <div class="form-group">
                           <label class="control-label">Description:</label>
@@ -178,7 +178,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <%= form_for @changeset_task, tech_path(@conn, :create_task, @ticket), fn f -> %>
+      <%= form_for @changeset_task, admin_path(@conn, :create_task, @ticket), fn f -> %>
       <div class="modal-body">
           <div class="form-group">
               <label class="control-label">Description:</label>

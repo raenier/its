@@ -1,26 +1,41 @@
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <%= link to: admin_path(@conn, :tickets), class: "nav-link " <> if(@active_tab == 1, do: "active", else: "") do %>
-          <i class="fas fa-ticket-alt"></i>&nbsp; All Tickets
-        <% end %>
+      <li class="nav-item dropdown active">
+        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Tickets
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link to: admin_path(@conn, :tickets), class: "dropdown-item" do %>
+            <i class="fas fa-ticket-alt"></i>&nbsp; All Tickets
+          <% end %>
+          <%= link to: admin_path(@conn, :tickets_pending), class: "dropdown-item" do %>
+            <i class="fas fa-ticket-alt"></i>&nbsp; Pending
+          <% end %>
+          <%= link to: admin_path(@conn, :tasks), class: "dropdown-item" do %>
+            <i class="fas fa-shipping-fast"></i>&nbsp; Tasks
+          <% end %>
+          <%= link to: admin_path(@conn, :to_others), class: "dropdown-item" do %>
+            <i class="fab fa-superpowers"></i>&nbsp; Assigned to others
+          <% end %>
+        </div>
       </li>
-      <li class="nav-item">
-        <%= link to: admin_path(@conn, :tickets_pending), class: "nav-link " <> if(@active_tab == 2, do: "active", else: "") do %>
-          <i class="fas fa-ticket-alt"></i>&nbsp; Pending
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link to: admin_path(@conn, :tasks), class: "nav-link " <> if(@active_tab == 3, do: "active", else: "") do %>
-          <i class="fas fa-shipping-fast"></i>&nbsp; Tasks
-        <% end %>
-      </li>
-      <li class="nav-item">
-        <%= link to: admin_path(@conn, :to_others), class: "nav-link " <> if(@active_tab == 4, do: "active", else: "") do %>
-          <i class="fab fa-superpowers"></i>&nbsp; Assigned to others
-        <% end %>
-      </li>
+
+        <div class="ml-auto">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control"></input>
+            <div class="input-group-append">
+              <select type="select" class="btn btn-outline-info btn-sm">
+                <option>Name</option>
+                <option>User Name</option>
+              </select>
+              <button class="btn btn-info">
+                <i class="fas fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
     </ul>
   </div>
   <div class="card-body padding-10">

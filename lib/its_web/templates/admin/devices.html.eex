@@ -1,20 +1,34 @@
-<br>
 <div class="container-fluid">
-    <ul class="nav nav-tabs">
-      <li class="nav-item">
-        <%= link to: admin_path(@conn, :devices), class: "nav-link active" do %>
-          <span class="fas fa-laptop"></span>&nbsp;<span class="fas fa-tablet"></span>&nbsp; Devices
-        <% end %>
-      </li>
-
-      <div class="ml-auto">
-        <a data-toggle="modal" data-target="#addUserModal" class="btn btn-success btn-sm">
-          <span class="fas fa-plus gi-15x"></span><i class="fas fa-laptop"></i>
-        </a>
-      </div>
-    </ul>
-    <br>
     <div class="card">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item">
+          <%= link to: admin_path(@conn, :devices), class: "nav-link active" do %>
+            <span class="fas fa-laptop"></span>&nbsp;<span class="fas fa-tablet"></span>&nbsp; Devices
+          <% end %>
+        </li>
+
+        <div class="ml-auto">
+        <div class="ml-auto">
+          <div class="input-group input-group-sm">
+            <input type="text" class="form-control"></input>
+            <div class="input-group-append">
+              <select type="select" class="btn btn-outline-info btn-sm">
+                <option>Name</option>
+                <option>User Name</option>
+              </select>
+              <button class="btn btn-info">
+                <i class="fas fa-search"></i>
+              </button>
+              <a data-toggle="modal" data-target="#addUserModal" class="btn btn-success btn-sm">
+                <span class="fas fa-plus gi-15x"></span><i class="fas fa-laptop"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        </div>
+      </ul>
+    </div>
     <div class="card-body">
     <table class="table table-sm table-hover no-top-border">
       <thead>

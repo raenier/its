@@ -14,6 +14,15 @@
   <div class="form-group">
     <div class="input-group">
       <div class="input-group-prepend">
+        <label class="control-label input-group-text">Device:</label>
+      </div>
+      <%= select f, :computer_id, @deviceopt, class: "form-control input-sm" %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <div class="input-group">
+      <div class="input-group-prepend">
         <label class="control-label input-group-text">Category:</label>
       </div>
       <%= select f, :category, [Hardware: "hardware", Software: "software"], selected: "hardware",class: "form-control" %>

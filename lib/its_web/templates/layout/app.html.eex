@@ -42,6 +42,13 @@
                 <% end %>
               </div>
             </li>
+
+            <li class="nav-item">
+              <%= link [to: admin_path(@conn, :devices), class: "nav-link"] do %>
+                <i class="fas fa-laptop"></i>&nbsp;Devices
+              <% end %>
+            </li>
+
             <li class="nav-item">
               <%= link [to: admin_path(@conn, :tickets), class: "nav-link"] do %>
                 <i class="fas fa-ticket-alt"></i>&nbsp;Tickets
@@ -50,14 +57,6 @@
                   </span>
               <% end %>
             </li>
-
-            <!--Deleted nav
-            <li class="nav-item">
-              <%= link [to: admin_path(@conn, :devices), class: "nav-link"] do %>
-                <i class="fas fa-laptop"></i>&nbsp;Devices
-              <% end %>
-            </li>
-            -->
 
             <% "client" -> %>
               <li class="nav-item">

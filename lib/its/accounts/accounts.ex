@@ -4,6 +4,7 @@ defmodule Its.Accounts do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Query
   alias Its.Repo
 
   alias Its.Accounts.User
@@ -29,6 +30,36 @@ defmodule Its.Accounts do
   def list_online_users(type) do
     from(u in User, where: u.ol_status == 1 and u.type in ^type)
     |> Repo.all
+  end
+
+  def search_user(userinput, attr) do
+    userinput
+    |> gen_query(attr)
+    |> Repo.all()
+  end
+
+  def gen_query(userinput, attr) do
+    querystr = "%#{userinput}%"
+    type = ["client", "technician", "headtech"]
+
+    case attr do
+      "first_name" ->
+        User
+        |> Query.where([u], ilike(u.first_name, ^querystr) and u.type in ^type)
+
+      "middle_name" ->
+        User
+        |> Query.where([u], ilike(u.middle_name, ^querystr) and u.type in ^type)
+
+      "last_name" ->
+        User
+        |> Query.where([u], ilike(u.last_name, ^querystr) and u.type in ^type)
+
+      "username" ->
+        User
+        |> Query.where([u], ilike(u.username, ^querystr) and u.type in ^type)
+
+    end
   end
 
   def map_name_id(usertypes) do

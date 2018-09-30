@@ -32,6 +32,12 @@ defmodule ItsWeb.AdminController do
     end
   end
 
+  def search(conn, %{"search" => %{"attr" => attr, "input" => userinput }}) do
+    users = Accounts.search_user(userinput, attr)
+    changeset = Accounts.change_user(%Accounts.User{})
+    render conn, "index.html", users: users, changeset: changeset, active_tab: 1
+  end
+
   def index_all(conn, _params) do
     users = Accounts.list_users_only(["client", "technician", "headtech"])
     changeset = Accounts.change_user(%Accounts.User{})

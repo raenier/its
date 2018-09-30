@@ -37,6 +37,7 @@ defmodule ItsWeb.Router do
     delete "/tickets/:id/delete", AdminController, :ticket_delete
     get "/ticket/:ticketid", AdminController, :show_ticket
     delete "/ticket/:ticketid/task/:taskid", AdminController, :delete_task
+    post "/search", AdminController, :search
   end
 
   scope "/admin/tickets", ItsWeb do

@@ -40,25 +40,20 @@ defmodule Its.Accounts do
 
   def gen_query(userinput, attr) do
     querystr = "%#{userinput}%"
-    type = ["client", "technician", "headtech"]
+    type = ["client", "technician"]
 
     case attr do
       "first_name" ->
-        User
-        |> Query.where([u], ilike(u.first_name, ^querystr) and u.type in ^type)
+        Query.from(u in User, where: u.type in ^type and ilike(u.first_name, ^querystr))
 
       "middle_name" ->
-        User
-        |> Query.where([u], ilike(u.middle_name, ^querystr) and u.type in ^type)
+        Query.from(u in User, where: u.type in ^type and ilike(u.middle_name, ^querystr))
 
       "last_name" ->
-        User
-        |> Query.where([u], ilike(u.last_name, ^querystr) and u.type in ^type)
+        Query.from(u in User, where: u.type in ^type and ilike(u.last_name, ^querystr))
 
       "username" ->
-        User
-        |> Query.where([u], ilike(u.username, ^querystr) and u.type in ^type)
-
+        Query.from(u in User, where: u.type in ^type and ilike(u.username, ^querystr))
     end
   end
 

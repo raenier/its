@@ -27,6 +27,6 @@ defmodule Its.Issue.Ticket do
   def changeset(ticket, attrs) do
     ticket
     |> cast(attrs, [:title, :priority, :category, :status, :description, :client_id, :tech_id, :htech_id, :computer_id, :progress])
-    |> validate_required([:title, :priority, :category, :status, :description])
+    |> validate_required([:title, :priority, :status, :description])
   end
 end

@@ -40,7 +40,6 @@
             <i class="fas fa-code-branch"></i>
           </th>
           <th class="wdth-15">Title</th>
-          <th class="wdth-10">Category</th>
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
           <th class="wdth-15">Technician</th>
@@ -52,7 +51,6 @@
           <tr>
             <td><%= ticket.id %></td>
             <td><%= ticket.title %></td>
-            <td><%= ticket.category %></td>
             <td><%= ticket.description %></td>
             <td>
               <%= case ticket.status do %>

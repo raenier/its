@@ -22,15 +22,6 @@
 
   <div class="form-group">
     <div class="input-group">
-      <div class="input-group-prepend">
-        <label class="control-label input-group-text">Category:</label>
-      </div>
-      <%= select f, :category, [Hardware: "hardware", Software: "software"], selected: "hardware",class: "form-control" %>
-    </div>
-  </div>
-
-  <div class="form-group">
-    <div class="input-group">
       <%= textarea f, :description, class: "form-control input-sm", placeholder: "Description of Problem/Issue", required: "required" %>
     </div>
   </div>

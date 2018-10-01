@@ -172,6 +172,14 @@ defmodule ItsWeb.AdminController do
     render conn, "tickets.html", tickets: tickets, active_tab: active_tab, name_and_id: name_and_id
   end
 
+  def search_ticket(conn, params) do
+    %{"search" => %{"attr" => attr, "input" => userinput}} = params
+    tickets = Issue.search_tickets(userinput, attr, params)
+    active_tab = 1
+    name_and_id = Accounts.map_name_id(["admin", "technician"])
+    render conn, "tickets.html", tickets: tickets, active_tab: active_tab, name_and_id: name_and_id
+  end
+
   def assign(conn, %{"id" => id, "ticket" => attrs}) do
     user_id = get_session(conn, :current_user_id)
     ticket = Issue.get_ticket! id

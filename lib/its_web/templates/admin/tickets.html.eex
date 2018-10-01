@@ -22,16 +22,20 @@
       </li>
 
         <div class="ml-auto">
+          <%= form_for @conn, admin_path(@conn, :search_ticket), [as: :search, class: "form-horizontal"], fn f -> %>
           <div class="input-group input-group-sm">
-            <input type="text" class="form-control"></input>
+            <%= text_input f, :input, class: "form-control", placeholder: "Search Ticket" %>
             <div class="input-group-append">
-              <select type="select" class="btn btn-outline-info btn-sm">
-                <option>Name</option>
-                <option>User Name</option>
-              </select>
-              <button class="btn btn-info">
+              <%= select f, :attr,
+                 [
+                   "Department": "title",
+                   "Description": "description",
+                 ], class: "btn btn-outline-info" %>
+
+              <%= submit class: "btn btn-info" do %>
                 <i class="fas fa-search"></i>
-              </button>
+              <% end %>
+          <% end %>
             </div>
           </div>
         </div>

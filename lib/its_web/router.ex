@@ -51,6 +51,7 @@ defmodule ItsWeb.Router do
     post "/:id/task", AdminController, :create_task
     put "/:ticketid/task/:taskid", AdminController, :update_task
     put "/:id", AdminController, :update_ticket
+    post "/search", AdminController, :search_ticket
   end
 
   scope "/admin/profile", ItsWeb do

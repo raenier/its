@@ -66,6 +66,13 @@ defmodule ItsWeb.AdminController do
     render conn, "devices.html", computers: computers, changeset: changeset, clients: clients
   end
 
+  def search_device(conn, %{"search" => %{"attr" => attr, "input" => userinput }}) do
+    computers = Devices.search_computer(userinput, attr)
+    changeset = Its.Devices.Computer.changeset(%Computer{}, %{})
+    clients = Accounts.map_name_id(["client"])
+    render conn, "devices.html", computers: computers, changeset: changeset, clients: clients
+  end
+
   def create_device(conn, %{"computer" => attrs}) do
     case Devices.create_computer(attrs) do
       {:ok, user} ->

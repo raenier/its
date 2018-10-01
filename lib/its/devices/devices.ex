@@ -4,6 +4,7 @@ defmodule Its.Devices do
   """
 
   import Ecto.Query, warn: false
+  alias Ecto.Query
   alias Its.Repo
 
   alias Its.Devices.Computer
@@ -19,6 +20,35 @@ defmodule Its.Devices do
   """
   def list_computers do
     Repo.all(Computer)
+  end
+
+  def search_computer(userinput, attr) do
+    userinput
+    |> gen_querystr(attr)
+    |> Repo.all
+  end
+
+  def gen_querystr(userinput, attr) do
+    querystr = "%#{userinput}%"
+    case attr do
+      "graphics" ->
+        Query.from c in Computer, where: ilike(c.graphics, ^querystr)
+
+      "model" ->
+        Query.from c in Computer, where: ilike(c.model, ^querystr)
+
+      "os" ->
+        Query.from c in Computer, where: ilike(c.os, ^querystr)
+
+      "processor" ->
+        Query.from c in Computer, where: ilike(c.processor, ^querystr)
+
+      "ram" ->
+        Query.from c in Computer, where: ilike(c.ram, ^querystr)
+
+      "type" ->
+        Query.from c in Computer, where: ilike(c.type, ^querystr)
+    end
   end
 
   def map_model_id() do

@@ -67,6 +67,7 @@ defmodule ItsWeb.Router do
     post "/", AdminController, :create_device
     put "/:id", AdminController, :update_device
     delete "/delete/:id", AdminController, :delete_device
+    post "/search", AdminController, :search_device
   end
 
   scope "/client", ItsWeb do

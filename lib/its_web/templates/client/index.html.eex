@@ -23,13 +23,30 @@
           <% end %>
         </div>
       </li>
+        <div class="ml-auto">
+          <%= form_for @conn, client_path(@conn, :search_ticket, @current_user), [as: :search, class: "form-horizontal"], fn f -> %>
+          <div class="input-group input-group-sm">
+            <%= text_input f, :input, class: "form-control", placeholder: "Search Ticket" %>
+            <div class="input-group-append">
+              <%= select f, :attr,
+                 [
+                   "Department": "title",
+                   "Description": "description",
+                 ], class: "btn btn-outline-info" %>
 
-      <div class="ml-auto">
-        <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#addTicketModal" href="#" style="margin: 0;">
-          <i class="fas fa-plus"></i>&nbsp;
-          <i class="fas fa-tag"></i>&nbsp;
-        </a>
-      </div>
+              <%= submit class: "btn btn-info" do %>
+                <i class="fas fa-search"></i>
+              <% end %>
+
+            <a class="btn btn-success btn-sm" data-toggle="modal" data-target="#addTicketModal" href="#" style="margin: 0;">
+              <i class="fas fa-plus"></i>&nbsp;
+              <i class="fas fa-tag"></i>&nbsp;
+            </a>
+          <% end %>
+            </div>
+          </div>
+        </div>
+
     </ul>
   </div>
   <div class="card-body padding-10">

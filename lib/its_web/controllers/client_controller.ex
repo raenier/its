@@ -47,6 +47,20 @@ defmodule ItsWeb.ClientController do
       deviceopt: deviceopt
   end
 
+  def search_ticket(conn, params) do
+    %{"search" => %{"input" => userinput, "attr" => attr}} = params
+    tickets = Issue.search_client_tickets(userinput, attr, params)
+
+    active_tab = 1
+    changeset = Issue.change_ticket(%Issue.Ticket{})
+    deviceopt = Devices.map_model_id()
+    render conn, "index.html",
+      tickets: tickets,
+      changeset: changeset,
+      active_tab: active_tab,
+      deviceopt: deviceopt
+  end
+
   def print(conn, %{"id" => id}) do
     ticket =
       Issue.get_ticket!(id)

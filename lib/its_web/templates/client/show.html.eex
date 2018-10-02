@@ -27,15 +27,6 @@
           </div>
 
           <div class="form-group">
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <label class="control-label input-group-text">Category:</label>
-              </div>
-              <label class="form-control"><%= String.capitalize @ticket.category %></label>
-            </div>
-          </div>
-
-          <div class="form-group">
           <div class="card">
             <div class="card-body padding-10">
               <%= @ticket.description %>

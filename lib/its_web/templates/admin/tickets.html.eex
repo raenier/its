@@ -53,6 +53,8 @@
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
           <th class="wdth-15">Technician</th>
+          <th class="wdth-10">Date Created</th>
+          <th class="wdth-10">Last Update</th>
           <th class="wdth-5"></th>
         </tr>
       </thead>
@@ -84,6 +86,8 @@
               <% ticket = Its.Repo.preload(ticket, :tech) %>
               <%= unless is_nil(ticket.tech), do: ticket.tech.first_name, else: "Not Yet Assigned" %>
             </td>
+            <td><%= Date.to_string ticket.inserted_at %></td>
+            <td><%= Date.to_string ticket.updated_at %></td>
             <td>
               <%= case ticket.status do %>
                 <% 1 -> %>

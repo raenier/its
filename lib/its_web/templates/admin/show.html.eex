@@ -90,7 +90,7 @@
               <div class="card-body">
                 Progress:
                 <div class="input-group">
-                  <%= range_input f, :progress, class: "form-control custom-range" %>
+                  <%= range_input f, :progress, class: "form-control custom-range", onchange: "update_text_val(this)" %>
                   <div class="input-group-append">
                     <label class="control-label input-group-text" id="progress-text">
                       <%= @ticket.progress %>%
@@ -129,7 +129,7 @@
           </div>
           <label>
             <em><small>Last updated at: <%= Date.to_string @ticket.updated_at %></small></em>
-            </label>
+          </label>
         <% end %>
       </div>
     </div>
@@ -141,10 +141,9 @@
         <button class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addTaskModal">
           ADD TASK
         </button>
-          <%= link to: admin_path(@conn, :print_ticket, @ticket), class: "btn btn-sm btn-info", target: "_blank" do %>
-            <b>PRINT</b> <i class="fas fa-print"></i>
-          <% end %>
-        </a>
+        <%= link to: admin_path(@conn, :print_ticket, @ticket), class: "btn btn-sm btn-info", target: "_blank" do %>
+          <b>PRINT</b> <i class="fas fa-print"></i>
+        <% end %>
       </div>
       <div class="card-body scroll">
         <%= for task <- @ticket.tasks do %>

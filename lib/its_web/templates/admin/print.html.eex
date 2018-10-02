@@ -74,7 +74,7 @@
     </tr>
     <tr>
       <td>DEVICE MODEL: <%= unless is_nil(@ticket.computer), do: @ticket.computer.model, else: "" %></td>
-      <td colspan=2>DEVICE USER: <%= unless is_nil(@ticket.computer.user),
+      <td colspan=2>DEVICE USER: <%= unless is_nil(@ticket.computer) || is_nil(@ticket.computer.user) ,
         do: @ticket.computer.user.first_name <> " " <> @ticket.computer.user.last_name,
         else: "" %>
     </td>

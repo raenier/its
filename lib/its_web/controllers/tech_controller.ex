@@ -19,6 +19,13 @@ defmodule ItsWeb.TechController do
     render(conn, "index.html", tickets: tickets, active_tab: active_tab)
   end
 
+  def search_ticket(conn, params) do
+    %{"search" => %{"input" => userinput, "attr" => attr}} = params
+    tickets = Issue.search_tech_tickets(userinput, attr, params)
+    active_tab = 1
+    render(conn, "index.html", tickets: tickets, active_tab: active_tab)
+  end
+
   def done(conn, params) do
     user_id = get_session(conn, :current_user_id)
     tickets =

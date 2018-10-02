@@ -122,6 +122,7 @@ defmodule ItsWeb.Router do
     get "/done", TechController, :done
     get "/ticket/:id", TechController, :show
     put "/ticket/:id", TechController, :update
+    post "/ticket/:id/search", TechController, :search_ticket
     post "/ticket/:id", TechController, :create_task
     put "/ticket/:ticketid/task/:taskid", TechController, :update_task
     delete "/ticket/:ticketid/task/:taskid", TechController, :delete_task

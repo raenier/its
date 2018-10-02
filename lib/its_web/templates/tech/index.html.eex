@@ -17,7 +17,7 @@
       </li>
 
         <div class="ml-auto">
-          <%= form_for @conn, admin_path(@conn, :search_ticket), [as: :search, class: "form-horizontal"], fn f -> %>
+          <%= form_for @conn, tech_path(@conn, :search_ticket, @current_user), [as: :search, class: "form-horizontal"], fn f -> %>
           <div class="input-group input-group-sm">
             <%= text_input f, :input, class: "form-control", placeholder: "Search Ticket" %>
             <div class="input-group-append">

@@ -22,6 +22,24 @@ defmodule Its.Issue do
     Repo.all(Ticket)
   end
 
+  def search_tech_tickets(userinputs, attr, params) do
+    %{"id" => id} = params
+    userinputs
+    |> gen_querystr_tech(attr, id)
+    |> Repo.paginate(params)
+  end
+
+  def gen_querystr_tech(userinputs, attr, id) do
+    querystr = "%#{userinputs}%"
+    case attr do
+      "title" ->
+        Query.from t in Ticket, where: ilike(t.title, ^querystr) and t.tech_id == ^id
+
+      "description" ->
+        Query.from t in Ticket, where: ilike(t.description, ^querystr) and t.tech_id == ^id
+    end
+  end
+
   def search_tickets(userinputs, attr, params) do
     userinputs
     |> gen_querystr(attr)

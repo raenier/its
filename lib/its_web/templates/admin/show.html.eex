@@ -121,6 +121,10 @@
         <button class="btn btn-sm btn-outline-primary" data-toggle="modal" data-target="#addTaskModal">
           ADD TASK
         </button>
+          <%= link to: admin_path(@conn, :print_ticket, @ticket), class: "btn btn-sm btn-info", target: "_blank" do %>
+            <b>PRINT</b> <i class="fas fa-print"></i>
+          <% end %>
+        </a>
       </div>
       <div class="card-body scroll">
         <%= for task <- @ticket.tasks do %>

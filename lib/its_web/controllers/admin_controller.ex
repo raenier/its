@@ -180,6 +180,15 @@ defmodule ItsWeb.AdminController do
     render conn, "tickets.html", tickets: tickets, active_tab: active_tab, name_and_id: name_and_id
   end
 
+  def print_ticket(conn, %{"id" => id}) do
+    ticket =
+      Issue.get_ticket!(id)
+      |> Its.Repo.preload([:client, :tech, tasks: :user, computer: :user])
+    conn = put_layout conn, false
+
+    render conn, "print.html", ticket: ticket
+  end
+
   def assign(conn, %{"id" => id, "ticket" => attrs}) do
     user_id = get_session(conn, :current_user_id)
     ticket = Issue.get_ticket! id

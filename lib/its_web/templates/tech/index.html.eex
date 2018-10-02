@@ -44,7 +44,7 @@
           <th class="wdth-5">
             <i class="fas fa-code-branch"></i>
           </th>
-          <th class="wdth-15">Title</th>
+          <th class="wdth-15">Department</th>
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
           <th class="wdth-10">Technician</th>

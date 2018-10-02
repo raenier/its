@@ -47,6 +47,15 @@ defmodule ItsWeb.ClientController do
       deviceopt: deviceopt
   end
 
+  def print(conn, %{"id" => id}) do
+    ticket =
+      Issue.get_ticket!(id)
+      |> Its.Repo.preload([:client, :tech, tasks: :user, computer: :user])
+    conn = put_layout conn, false
+
+    render conn, "print.html", ticket: ticket
+  end
+
   def active(conn, params) do
     user_id = get_session(conn, :current_user_id)
     tickets =

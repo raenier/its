@@ -4,7 +4,14 @@
   <div class="col-sm-5">
     <div class="card">
       <div class="card-header bg-success text-white padding-10-5">
-        <h6 class="no-margin"><i class="fas fa-tag"></i><b>&nbsp; <%= String.upcase @ticket.title %></b></h6>
+        <div class="row">
+          <div class="col-sm-8">
+            <h6 class="no-margin"><i class="fas fa-tag"></i><b>&nbsp; <%= String.upcase @ticket.title %></b></h6>
+          </div>
+          <div class="col-sm-4 text-right">
+            <%= Date.to_string @ticket.inserted_at %>
+          </div>
+        </div>
       </div>
       <div class="card-body">
           <div class="form-group">
@@ -90,6 +97,9 @@
               <% end %>
             </div>
           </div>
+          <label>
+            <em><small>Last updated at: <%= Date.to_string @ticket.updated_at %></small></em>
+          </label>
       </div>
     </div>
   </div>
@@ -97,7 +107,16 @@
   <div class="col-sm-7">
     <div class="card">
       <div class="card-header text-left">
-        <i class="fas fa-tasks"></i>
+        <div class="row">
+        <div class="col-sm-6">
+          <i class="fas fa-tasks"></i>
+        </div>
+        <div class="col-sm-6 text-right">
+          <%= link to: client_path(@conn, :print, @ticket), class: "btn btn-sm btn-info", target: "_blank" do %>
+            <b>PRINT</b> <i class="fas fa-print"></i>
+          <% end %>
+        </div>
+        </div>
       </div>
       <div class="card-body scroll">
         <%= for task <- @ticket.tasks do %>

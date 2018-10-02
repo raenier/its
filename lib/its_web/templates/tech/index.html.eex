@@ -47,8 +47,10 @@
           <th class="wdth-15">Department</th>
           <th class="wdth-30">Description</th>
           <th class="wdth-15">Status</th>
-          <th class="wdth-10">Technician</th>
-          <th class="wdth-10">Client</th>
+          <th class="wdth-15">Technician</th>
+          <th class="wdth-15">Client</th>
+          <th class="wdth-15">Date Created</th>
+          <th class="wdth-15">Last Update</th>
           <th class="wdth-5"></th>
         </tr>
       </thead>
@@ -83,6 +85,8 @@
             <td>
               <%= unless is_nil(ticket.client), do: ticket.client.first_name, else: "Anonymous" %>
             </td>
+            <td><%= Date.to_string ticket.inserted_at %></td>
+            <td><%= Date.to_string ticket.updated_at %></td>
             <td>
               <%= case ticket.status do %>
                 <% 2 -> %>

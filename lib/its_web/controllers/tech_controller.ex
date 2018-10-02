@@ -48,6 +48,15 @@ defmodule ItsWeb.TechController do
     render(conn, "index.html", tickets: tickets, active_tab: active_tab)
   end
 
+  def print(conn, %{"id" => id}) do
+    ticket =
+      Issue.get_ticket!(id)
+      |> Its.Repo.preload([:client, :tech, tasks: :user, computer: :user])
+    conn = put_layout conn, false
+
+    render conn, "print.html", ticket: ticket
+  end
+
   def done(conn, params) do
     user_id = get_session(conn, :current_user_id)
     tickets =

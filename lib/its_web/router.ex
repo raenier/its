@@ -123,6 +123,7 @@ defmodule ItsWeb.Router do
     get "/ticket/:id", TechController, :show
     put "/ticket/:id", TechController, :update
     post "/ticket/:id/search", TechController, :search_ticket
+    get "/ticket/:id/print", TechController, :print
     post "/ticket/:id", TechController, :create_task
     put "/ticket/:ticketid/task/:taskid", TechController, :update_task
     delete "/ticket/:ticketid/task/:taskid", TechController, :delete_task

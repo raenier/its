@@ -7,7 +7,7 @@
             <i class="fas fa-signature"></i>
           </label>
         </div>
-        <%= text_input f, :title, class: "form-control input-sm", required: "required", placeholder: "Title"%>
+        <%= text_input f, :title, class: "form-control input-sm", required: "required", placeholder: "Department" %>
       </div>
   </div>
 

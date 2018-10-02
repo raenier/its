@@ -260,17 +260,9 @@ defmodule ItsWeb.AdminController do
 
   def update_ticket(conn, %{"id" => id, "ticket" => attrs}) do
     ticket = Issue.get_ticket! id
-    attrs =
-    if attrs["progress"] == "100" do
-      Map.put attrs, "status", 3
-    else
-      Map.put attrs, "status", 2
-    end
-
     case Issue.update_ticket(ticket, attrs) do
       {:ok, ticket} ->
         redirect(conn, to: admin_path(conn, :show, ticket))
-
 
       {:error, changeset} ->
         conn

@@ -106,10 +106,24 @@
     <tr><td><br></td></tr>
     <tr>
       <td>
-        Client: <u><%= @ticket.client.first_name %> <%= @ticket.client.middle_name %> <%= @ticket.client.last_name %></u>
+        Client:
+        <u>
+          <%= unless is_nil(@ticket.client) do %>
+            <%= @ticket.client.first_name %> <%= @ticket.client.middle_name %> <%= @ticket.client.last_name %>
+          <% else %>
+            Client User Deleted
+          <% end %>
+        </u>
       </td>
       <td colspan=2>
-        Tech: <u><%= @ticket.tech.first_name %> <%= @ticket.tech.middle_name %> <%= @ticket.tech.last_name %></u>
+        Tech:
+        <u>
+          <%= unless is_nil(@ticket.tech) do %>
+            <%= @ticket.tech.first_name %> <%= @ticket.tech.middle_name %> <%= @ticket.tech.last_name %>
+          <% else %>
+            Tech User Deleted
+          <% end %>
+        </u>
       </td>
     </tr>
   </tbody>

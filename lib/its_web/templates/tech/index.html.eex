@@ -2,17 +2,39 @@
 <div class="card text-center">
   <div class="card-header">
     <ul class="nav nav-tabs card-header-tabs">
-      <li class="nav-item">
-        <%= link to: tech_path(@conn, :index), class: "nav-link " <> if(@active_tab == 1, do: "active", else: "") do %>
-          <i class="fas fa-shipping-fast"></i> Tasks
-        <% end %>
+      <li class="nav-item dropdown active">
+        <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Tickets
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <%= link to: tech_path(@conn, :index), class: "dropdown-item" do %>
+            <i class="fas fa-shipping-fast"></i> Tasks
+          <% end %>
+          <%= link to: tech_path(@conn, :done), class: "dropdown-item" do %>
+            <i class="fab fa-superpowers"></i> Tasks Done
+          <% end %>
+        </div>
       </li>
 
-      <li class="nav-item">
-        <%= link to: tech_path(@conn, :done), class: "nav-link " <> if(@active_tab == 2, do: "active", else: "") do %>
-          <i class="fab fa-superpowers"></i> Tasks Done
-        <% end %>
-      </li>
+        <div class="ml-auto">
+          <%= form_for @conn, admin_path(@conn, :search_ticket), [as: :search, class: "form-horizontal"], fn f -> %>
+          <div class="input-group input-group-sm">
+            <%= text_input f, :input, class: "form-control", placeholder: "Search Ticket" %>
+            <div class="input-group-append">
+              <%= select f, :attr,
+                 [
+                   "Department": "title",
+                   "Description": "description",
+                 ], class: "btn btn-outline-info" %>
+
+              <%= submit class: "btn btn-info" do %>
+                <i class="fas fa-search"></i>
+              <% end %>
+          <% end %>
+            </div>
+          </div>
+        </div>
+
     </ul>
   </div>
   <div class="card-body padding-10">
